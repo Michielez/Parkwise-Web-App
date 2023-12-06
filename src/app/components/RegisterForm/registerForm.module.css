@@ -1,0 +1,17 @@
+.form{
+    width: 100%;
+}
+.saveButton{
+    width: 50%;
+    margin: 1rem auto;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    border: solid 1px white;
+    background-color: #000;
+    color: white;
+}
+.saveButton:hover{
+    background-color: #fff;
+    color: #000;
+    cursor: pointer;
+}

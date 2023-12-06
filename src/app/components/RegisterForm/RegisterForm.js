@@ -1,8 +1,9 @@
 "use client";
 import React, { useState } from 'react';
 import FormField from '../FormField/FormField';
+import styles from './form.module.css';
 
-const MyForm = () => {
+const RegisterForm = () => {
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -36,7 +37,7 @@ const MyForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className={styles.form}>
       {fields.map(field => (
         <FormField
           key={field.name}
@@ -47,7 +48,7 @@ const MyForm = () => {
           onChange={handleChange}
         />
       ))}
-      <button type="submit" className="saveButton">Opslaan</button>
+      <button type="submit" className={styles.saveButton}>Opslaan</button>
     </form>
   );
 };

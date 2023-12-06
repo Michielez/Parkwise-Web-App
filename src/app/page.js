@@ -8,13 +8,9 @@ import styles from './page.module.css'
 export default function Home() {
   return (
     <main className={styles.main}>
-      <h1>Parkwise</h1>
-      <SearchBar />
-      <BottomNavigation />
-      <Card title='Hello'>
-        <p>Test</p>
-      </Card>
+      <h1 className={styles.title}>Parkwise</h1>
       <Form />
+      <BottomNavigation />
     </main>
   )
 }
