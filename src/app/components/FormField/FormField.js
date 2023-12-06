@@ -7,7 +7,6 @@ export default function FormField({ label, type, name, value, onChange }){
       <label htmlFor={name} className={styles.formLabel}>{label}</label>
       <input
         type={type}
-        id={name}
         name={name}
         value={value}
         onChange={onChange}

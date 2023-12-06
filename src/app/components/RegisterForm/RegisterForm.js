@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import FormField from '../FormField/FormField';
 import styles from './registerForm.module.css';
 
-const RegisterForm = () => {
+const RegisterForm = ({handleCancel}) => {
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -31,8 +31,6 @@ const RegisterForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Here you would typically handle the form submission,
-    // such as sending data to a server or updating state
     console.log(formData);
   };
 
@@ -48,7 +46,10 @@ const RegisterForm = () => {
           onChange={handleChange}
         />
       ))}
-      <button type="submit" className={styles.saveButton}>Opslaan</button>
+      <div className={styles.formButtons}>
+        <button type="submit" className={styles.saveButton}>Opslaan</button>
+        <button type="button" onClick={handleCancel} className={styles.cancelButton}>Annuleren</button>
+      </div>
     </form>
   );
 };

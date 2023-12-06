@@ -1,16 +1,29 @@
 .form{
     width: 100%;
 }
-.saveButton{
-    width: 50%;
-    margin: 1rem auto;
+.form .formButtons{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+}
+.form .cancelButton{
+    margin: 1rem 0 1rem auto;
+
+}
+.form .saveButton{
+    margin: 1rem auto 1rem 0;
+}
+.form .saveButton, .form .cancelButton{
+    width: 48%;
     padding: 0.5rem;
     border-radius: 0.5rem;
     border: solid 1px white;
     background-color: #000;
     color: white;
 }
-.saveButton:hover{
+
+.form .saveButton:hover, .form .cancelButton:hover{
     background-color: #fff;
     color: #000;
     cursor: pointer;
