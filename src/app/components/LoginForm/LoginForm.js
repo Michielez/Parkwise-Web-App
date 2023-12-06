@@ -1,24 +1,17 @@
 "use client";
 import React, { useState } from 'react';
 import FormField from '../FormField/FormField';
-import styles from './registerForm.module.css';
+import styles from './loginForm.module.css';
 
-const RegisterForm = () => {
+const loginForm = () => {
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
     email: '',
-    password: '',
-    licensePlate: '',
+    password: ''
   });
 
   const fields = [
-    { label: 'Voornaam', type: 'text', name: 'firstName' },
-    { label: 'Achternaam', type: 'text', name: 'lastName' },
     { label: 'E-mail', type: 'email', name: 'email' },
-    { label: 'Wachtwoord', type: 'password', name: 'password' },
-    { label: 'Nummerplaat', type: 'text', name: 'licensePlate' },
-    // ... add other field configurations as needed
+    { label: 'Wachtwoord', type: 'password', name: 'password' }
   ];
 
   const handleChange = (e) => {
@@ -48,9 +41,12 @@ const RegisterForm = () => {
           onChange={handleChange}
         />
       ))}
-      <button type="submit" className={styles.saveButton}>Opslaan</button>
+      <div className={styles.formButtons}>
+      <button type="submit" className={styles.loginButton}>Login</button>
+      <button type="submit" className={styles.registerButton}>Registreer</button>
+      </div>
     </form>
   );
 };
 
-export default RegisterForm;
+export default loginForm;

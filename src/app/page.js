@@ -1,7 +1,5 @@
 import BottomNavigation from './components/BottomNavigation/BottomNavigation'
-import SearchBar from './components/SearchBar/SearchBar'
-import Card from './components/Card/Card'
-import Form from './components/Form/Form'
+import Form from './components/LoginForm/LoginForm'
 import styles from './page.module.css'
 
 

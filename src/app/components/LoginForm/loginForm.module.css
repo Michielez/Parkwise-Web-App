@@ -1,0 +1,30 @@
+.form{
+    width: 100%;
+}
+.form .formButtons{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+}
+.form .registerButton{
+    margin: 1rem 0 1rem auto;
+
+}
+.form .loginButton{
+    margin: 1rem auto 1rem 0;
+}
+.form .loginButton, .form .registerButton{
+    width: 48%;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    border: solid 1px white;
+    background-color: #000;
+    color: white;
+}
+
+.form .loginButton:hover, .form .registerButton:hover{
+    background-color: #fff;
+    color: #000;
+    cursor: pointer;
+}
