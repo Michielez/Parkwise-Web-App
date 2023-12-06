@@ -1,0 +1,16 @@
+.card {
+    margin-bottom: 1rem;
+    background-color: #fff;
+}
+
+.cardTitle {
+    background-color: #f00;
+    color: #fff;
+    padding: 0.5rem;
+    margin: 0;
+}
+
+.cardContent {
+    padding: 0.5rem;
+    color: black;
+}

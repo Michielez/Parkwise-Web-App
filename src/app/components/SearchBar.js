@@ -1,7 +1,7 @@
 import styles from './searchBar.module.css'
 
-export default function SearchBar(){
+export default function SearchBar({onChange}){
     return (
-        <input className={styles["search-bar"]} type="text" placeholder="Search" />
+        <input onChange={onChange} className={styles["search-bar"]} type="text" placeholder="Search" />
     )
 }
