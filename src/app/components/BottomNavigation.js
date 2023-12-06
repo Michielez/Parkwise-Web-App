@@ -13,12 +13,12 @@ export default function BottomNavigation() {
         <nav className={styles['bottom-navigation']}>
             <ul>
                 <li>
-                    <Link href={`rekening`}>
+                    <Link href={`bill`}>
                         <Image
                             src={rekeningPic}
-                            alt='rekening'
+                            alt='Bill'
                         />
-                        Rekening
+                        Bill
                     </Link>
                 </li>
                 <li>
@@ -36,7 +36,7 @@ export default function BottomNavigation() {
                             src={searchPic}
                             alt='search glass'
                         />
-                        Zoeken
+                        Search
                     </Link>
                 </li>
                 <li>
