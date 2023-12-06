@@ -1,6 +1,7 @@
-import BottomNavigation from './components/BottomNavigation'
-import SearchBar from './components/SearchBar'
-import Card from './components/Card'
+import BottomNavigation from './components/BottomNavigation/BottomNavigation'
+import SearchBar from './components/SearchBar/SearchBar'
+import Card from './components/Card/Card'
+import Form from './components/Form/Form'
 import styles from './page.module.css'
 
 
@@ -13,6 +14,7 @@ export default function Home() {
       <Card title='Hello'>
         <p>Test</p>
       </Card>
+      <Form />
     </main>
   )
 }
