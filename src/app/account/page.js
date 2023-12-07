@@ -8,7 +8,7 @@ import LoginForm from "../components/LoginForm/LoginForm"
 import RegisterForm from "../components/RegisterForm/RegisterForm"
 
 
-export default function Account(){
+export default function Account() {
     const [showRegisterForm, setShowRegisterForm] = useState(false);
 
     const handleRegisterClick = () => {
@@ -19,12 +19,12 @@ export default function Account(){
         setShowRegisterForm(false);
     }
 
-    return(
-        <>
-        <h1>Account</h1>
-        {!showRegisterForm && <LoginForm handleRegisterClick={handleRegisterClick}/>}
-        {showRegisterForm && <RegisterForm handleCancel={handleCancelClick}/>}
-        <BottomNavigation />
-        </>
+    return (
+        <main>
+            <h1>Account</h1>
+            {!showRegisterForm && <LoginForm handleRegisterClick={handleRegisterClick} />}
+            {showRegisterForm && <RegisterForm handleCancel={handleCancelClick} />}
+            <BottomNavigation />
+        </main>
     )
 }
