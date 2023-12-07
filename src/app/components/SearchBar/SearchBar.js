@@ -1,23 +1,31 @@
+import React, { useState } from 'react';
 import styles from './searchBar.module.css';
 import Image from 'next/image';
-
 import searchPic from 'public/white-search-icon.svg';
 
-export default function SearchBar({ onChange }) {
+export default function SearchBar({ onSearchChange, placeholder }) {
+    const [searchValue, setSearchValue] = useState('');
+
+    const handleSearchSubmit = (event) => {
+        event.preventDefault(); // Prevent the form from reloading the page
+        onSearchChange(searchValue); // Trigger the search
+    };
+
     return (
-        <div className={styles['search-bar-wrapper']}>
+        <form onSubmit={handleSearchSubmit} className={styles['search-bar-wrapper']}>
             <input
-                onChange={(e) => onSearchChange(e.target.value)}
+                value={searchValue}
+                onChange={(e) => setSearchValue(e.target.value)}
                 className={styles['search-bar']}
                 type="text"
-                placeholder="Brugse Poort"
+                placeholder={placeholder}
             />
-            <Image
-                className={styles['search-icon']}
-                src={searchPic}
-                alt='search glass'
-            />
-
-        </div>
+            <button type="submit" className={styles['search-button']}>
+                <Image
+                    src={searchPic}
+                    alt='Search'
+                />
+            </button>
+        </form>
     );
 }

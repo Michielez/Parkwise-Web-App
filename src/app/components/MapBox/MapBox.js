@@ -6,29 +6,36 @@ import 'mapbox-gl/dist/mapbox-gl.css'; // Import the Mapbox CSS
 
 mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAP_BOX_API_KEY;
 
-export default function MapBox({ searchResult }) {
+export default function MapBox({ location }) {
     const mapContainerRef = useRef(null);
+    const mapRef = useRef(null);
+    const markerRef = useRef(null);
 
     useEffect(() => {
-        const map = new mapboxgl.Map({
+        mapRef.current = new mapboxgl.Map({
             container: mapContainerRef.current,
             style: 'mapbox://styles/mapbox/streets-v11',
             center: [3.224700, 51.209348], // Default center
             zoom: 9 // Default zoom
         });
 
-        map.addControl(new mapboxgl.NavigationControl(), 'top-right');
+        mapRef.current.addControl(new mapboxgl.NavigationControl(), 'top-right');
 
-        if (searchResult) {
-            map.flyTo({
-                center: searchResult,
+        markerRef.current = new mapboxgl.Marker();
+
+        return () => mapRef.current.remove();
+    }, []);
+
+    useEffect(() => {
+        if (location && mapRef.current){
+            markerRef.current.setLngLat(location).addTo(mapRef.current);
+            mapRef.current.flyTo({
+                center: location,
                 essential: true,
-                zoom: 15
-            });
+                zoom: 14
+            })
         }
-
-        return () => map.remove();
-    }, [searchResult]);
+    },[location])
 
     return <div ref={mapContainerRef} className='map-container' style={{ width: '100%', height: '400px' }} />;
 };
