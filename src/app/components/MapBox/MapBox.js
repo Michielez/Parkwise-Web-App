@@ -16,7 +16,7 @@ export default function MapBox({ location, markers }) {
             container: mapContainerRef.current,
             style: 'mapbox://styles/mapbox/streets-v11', //TODO: Change style
             center: [3.224700, 51.209348], //TODO: Default center Bruges [lng, lat] 
-            zoom: 9 //TODO: Default zoom
+            zoom: 14 //TODO: Default zoom
         });
 
         mapRef.current.addControl(new mapboxgl.NavigationControl(), 'top-right');
@@ -54,6 +54,34 @@ export default function MapBox({ location, markers }) {
             });
         }
     }, [markers])
+
+    useEffect(()=>{
+        if (navigator.geolocation && mapRef.current){
+            navigator.geolocation.getCurrentPosition(position => {
+                const userLocation = [position.coords.longitude, position.coords.latitude];
+
+                const el = document.createElement('div');
+                el.className = 'user-location-marker';
+                el.style.width = markerSize + 'px';
+                el.style.height = markerSize + 'px';
+                el.style.backgroundSize = 'cover';
+                el.style.backgroundImage = 'url(/user-location-icon.svg)';
+
+                new mapboxgl.Marker(el)
+                .setLngLat(userLocation)
+                .addTo(mapRef.current);
+
+                mapRef.current.flyTo({
+                    center: userLocation,
+                    essential: true,
+                    zoom: 14
+                });
+
+            },() => {
+                console.log('Error in the geolocation service.');
+            })
+        }
+    },[])
 
     return <div ref={mapContainerRef} className='map-container' style={{ width: '100%', height: '400px' }} />;
 };
