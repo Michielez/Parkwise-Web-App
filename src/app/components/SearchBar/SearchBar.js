@@ -7,17 +7,17 @@ export default function SearchBar({ onChange }) {
     return (
         <div className={styles['search-bar-wrapper']}>
             <input
-                onChange={onChange}
+                onChange={(e) => onSearchChange(e.target.value)}
                 className={styles['search-bar']}
                 type="text"
                 placeholder="Brugse Poort"
             />
-            <Image 
+            <Image
                 className={styles['search-icon']}
                 src={searchPic}
                 alt='search glass'
             />
-             
+
         </div>
     );
 }
