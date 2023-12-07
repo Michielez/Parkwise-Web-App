@@ -3,12 +3,12 @@ import styles from './searchBar.module.css';
 import Image from 'next/image';
 import searchPic from 'public/white-search-icon.svg';
 
-export default function SearchBar({ onSearchChange, placeholder }) {
+export default function SearchBar({ onSearch, placeholder }) {
     const [searchValue, setSearchValue] = useState('');
 
     const handleSearchSubmit = (event) => {
         event.preventDefault(); // Prevent the form from reloading the page
-        onSearchChange(searchValue); // Trigger the search
+        onSearch(searchValue); // Trigger the search
     };
 
     return (
