@@ -1,7 +1,23 @@
-import styles from './searchBar.module.css'
+import styles from './searchBar.module.css';
+import Image from 'next/image';
 
-export default function SearchBar({onChange}){
+import searchPic from 'public/white-search-icon.svg';
+
+export default function SearchBar({ onChange }) {
     return (
-        <input onChange={onChange} className={styles["search-bar"]} type="text" placeholder="Search" />
-    )
+        <div className={styles['search-bar-wrapper']}>
+            <input
+                onChange={onChange}
+                className={styles['search-bar']}
+                type="text"
+                placeholder="Brugse Poort"
+            />
+            <Image 
+                className={styles['search-icon']}
+                src={searchPic}
+                alt='search glass'
+            />
+             
+        </div>
+    );
 }

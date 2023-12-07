@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 import ticketPic from 'public/ticket.svg'
 import rekeningPic from 'public/rekening.svg'
-import searchPic from 'public/search.svg'
+import searchPic from 'public/black-search-icon.svg'
 import accountPic from 'public/person.svg'
 
 import styles from './bottomNavigation.module.css'

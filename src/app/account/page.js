@@ -20,11 +20,13 @@ export default function Account() {
     }
 
     return (
+        <>
         <main>
             <h1>Account</h1>
             {!showRegisterForm && <LoginForm handleRegisterClick={handleRegisterClick} />}
             {showRegisterForm && <RegisterForm handleCancel={handleCancelClick} />}
-            <BottomNavigation />
         </main>
+        <BottomNavigation />
+        </>
     )
 }

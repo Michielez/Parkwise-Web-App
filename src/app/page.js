@@ -4,9 +4,12 @@ import Title from './components/Title/Title'
 
 export default function Home() {
   return (
+    <>
     <main className={styles.main}>
       <Title title={"Parkwise"}/>
-      <BottomNavigation />
     </main>
+    <BottomNavigation />
+    </>
+    
   )
 }
