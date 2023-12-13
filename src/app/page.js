@@ -7,7 +7,6 @@ export default function Home() {
     <>
     <main className={styles.main}>
       <Title title={"Parkwise"}/>
-      <MapBox />
     </main>
     <BottomNavigation />
     </>

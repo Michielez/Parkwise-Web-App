@@ -3,10 +3,67 @@
 import mapboxgl from "mapbox-gl";
 import { useEffect, useRef } from 'react';
 import 'mapbox-gl/dist/mapbox-gl.css';
+import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
+import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 
 mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAP_BOX_API_KEY;
 const markerSize = 25;
-export default function MapBox({ location, markers }) {
+
+const customMarkers = [ //TODO: This is just an example, remove this
+    {
+
+        id: 1,
+        location: {
+            lng: 3.21878,
+            lat: 50.93014,
+        },        
+        name: "Parking Spot 1",
+        imageUrl: "/parking-icon.svg"
+    },
+    {
+
+        id: 2,
+        location: {
+            lng: 3.20961,
+            lat: 50.92927,
+        },        
+        name: "Parking Spot 2",
+        imageUrl: "/parking-icon.svg"
+    },
+    {
+
+        id: 3,
+        location: {
+            lng: 3.22114,
+            lat: 50.92849,
+        },        
+        name: "Parking Spot 3",
+        imageUrl: "/parking-icon.svg"
+    },
+    {
+
+        id: 4,
+        location: {
+            lng:  3.21099,
+            lat: 50.92564,
+        },        
+        name: "Parking Spot 4",
+        imageUrl: "/parking-icon.svg"
+    },
+    {
+
+        id: 5,
+        location: {
+            lng: 3.20922,
+            lat: 50.92661,
+        },        
+        name: "Parking Spot 5",
+        imageUrl: "/parking-icon.svg"
+    }
+]
+
+
+export default function MapBox({ location, markers = customMarkers, onMarkerClick}) {
     const mapContainerRef = useRef(null);
     const mapRef = useRef(null);
     const markerRef = useRef(null);
@@ -19,7 +76,9 @@ export default function MapBox({ location, markers }) {
             zoom: 14 //TODO: Default zoom
         });
 
-        mapRef.current.addControl(new mapboxgl.NavigationControl(), 'top-right');
+        mapRef.current.addControl(new MapboxGeocoder({ accessToken: mapboxgl.accessToken, mapboxgl: mapboxgl }), 'top-left');
+
+        mapRef.current.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
 
         markerRef.current = new mapboxgl.Marker();
 
@@ -47,10 +106,14 @@ export default function MapBox({ location, markers }) {
                 el.style.width = markerSize + 'px';
                 el.style.height = markerSize + 'px';
                 el.style.backgroundSize = 'cover';
-                new mapboxgl.Marker(el)
+                const newMarker = new mapboxgl.Marker(el)
                     .setLngLat([marker.location.lng, marker.location.lat])
-                    .setPopup(new mapboxgl.Popup({offset: markerSize/2}).setHTML(`<h3>${marker.name}</h3>`))
+                    .setPopup(new mapboxgl.Popup({offset: markerSize/2})
+                    .setHTML(`<h3 style='color:black'>${marker.name}</h3>`))
                     .addTo(mapRef.current);
+                newMarker.getElement().addEventListener('click', (e) => {
+                    onMarkerClick(marker);
+                })
             });
         }
     }, [markers])
