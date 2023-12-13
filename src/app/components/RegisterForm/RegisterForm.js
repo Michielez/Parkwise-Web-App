@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import FormField from '../FormField/FormField';
 import styles from './registerForm.module.css';
+import ParkWiseAPI from '../../api/parkwise';
 
 const RegisterForm = ({handleCancel}) => {
   const [formData, setFormData] = useState({
@@ -13,12 +14,16 @@ const RegisterForm = ({handleCancel}) => {
   });
 
   const fields = [
-    { label: 'Voornaam', type: 'text', name: 'firstName' },
-    { label: 'Achternaam', type: 'text', name: 'lastName' },
+    { label: 'Username', type: 'text', name: 'username' },
+    { label: 'Voornaam', type: 'text', name: 'first_name' },
+    { label: 'Achternaam', type: 'text', name: 'last_Name' },
     { label: 'E-mail', type: 'email', name: 'email' },
     { label: 'Wachtwoord', type: 'password', name: 'password' },
-    { label: 'Nummerplaat', type: 'text', name: 'licensePlate' },
-    // ... add other field configurations as needed
+    { label: 'Tel', type: 'tel', name: 'phone' },
+    { label: 'Address', type: 'text', name: 'address'},
+    { label: 'Stad', type: 'text', name:'city'},
+    { label: 'Postcode', type:'number', name: 'zip'},
+    { label: 'Land', type: 'text', name: 'country_id'},
   ];
 
   const handleChange = (e) => {
@@ -32,6 +37,8 @@ const RegisterForm = ({handleCancel}) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(formData);
+    const parkwiseAPI = new ParkWiseAPI()
+    //TODO remove when api is completed! parkwiseAPI.authenticate.register(formData.)
   };
 
   return (
@@ -47,8 +54,8 @@ const RegisterForm = ({handleCancel}) => {
         />
       ))}
       <div className={styles.formButtons}>
-        <button type="submit" className={styles.saveButton}>Opslaan</button>
-        <button type="button" onClick={handleCancel} className={styles.cancelButton}>Annuleren</button>
+        <button type="submit" className={styles.saveButton}>Registreer</button>
+        <button type="button" onClick={handleCancel} className={styles.cancelButton}>Terug</button>
       </div>
     </form>
   );

@@ -5,6 +5,7 @@ import { useEffect, useRef } from 'react';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
+import sytles from './MapBox.module.css';
 
 mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAP_BOX_API_KEY;
 const markerSize = 25;
@@ -13,6 +14,13 @@ const customMarkers = [ //TODO: This is just an example, remove this
     {
 
         id: 1,
+        type: "parking",
+        prices: {
+            hour: "€1,00",
+            day: "€10,00",
+            week: "€50,00",
+            month: "€100,00",
+        },
         location: {
             lng: 3.21878,
             lat: 50.93014,
@@ -23,6 +31,13 @@ const customMarkers = [ //TODO: This is just an example, remove this
     {
 
         id: 2,
+        type: "parking",
+        prices: {
+            hour: "€2,00",
+            day: "€10,00",
+            week: "€50,00",
+            month: "€100,00",
+        },
         location: {
             lng: 3.20961,
             lat: 50.92927,
@@ -33,6 +48,13 @@ const customMarkers = [ //TODO: This is just an example, remove this
     {
 
         id: 3,
+        type: "parking",
+        prices: {
+            hour: "€3,00",
+            day: "€10,00",
+            week: "€50,00",
+            month: "€100,00",
+        },
         location: {
             lng: 3.22114,
             lat: 50.92849,
@@ -43,6 +65,13 @@ const customMarkers = [ //TODO: This is just an example, remove this
     {
 
         id: 4,
+        type: "parking",
+        prices: {
+            hour: "€4,00",
+            day: "€10,00",
+            week: "€50,00",
+            month: "€100,00",
+        },
         location: {
             lng:  3.21099,
             lat: 50.92564,
@@ -53,6 +82,13 @@ const customMarkers = [ //TODO: This is just an example, remove this
     {
 
         id: 5,
+        type: "parking",
+        prices: {
+            hour: "€5,00",
+            day: "€10,00",
+            week: "€50,00",
+            month: "€100,00",
+        },
         location: {
             lng: 3.20922,
             lat: 50.92661,
@@ -112,6 +148,7 @@ export default function MapBox({ location, markers = customMarkers, onMarkerClic
                     .setHTML(`<h3 style='color:black'>${marker.name}</h3>`))
                     .addTo(mapRef.current);
                 newMarker.getElement().addEventListener('click', (e) => {
+                    e.preventDefault();
                     onMarkerClick(marker);
                 })
             });
@@ -146,5 +183,5 @@ export default function MapBox({ location, markers = customMarkers, onMarkerClic
         }
     },[])
 
-    return <div ref={mapContainerRef} className='map-container' style={{ width: '100%', height: '400px' }} />;
+    return <div ref={mapContainerRef} className={sytles['map-box-container']} style={{ width: '100%', height: '400px' }} />;
 };
