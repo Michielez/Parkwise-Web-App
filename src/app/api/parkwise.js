@@ -108,15 +108,4 @@ class ParkWise {
 
 }
 
-
-const parkwise = {
-    authenticate: {
-
-    },
-    Users: {
-        users: async(pages, page)
-    }
-
-};
-
-export default parkwise;
+export default ParkWise;
