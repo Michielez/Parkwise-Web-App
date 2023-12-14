@@ -29,6 +29,15 @@ const huidigeSessieExample = {
                 },{
                     minutes: 300,
                     price: 10.00
+                },{
+                    minutes: 330,
+                    price: 10.00
+                },{
+                    minutes: 360,
+                    price: 10.00
+                },{
+                    minutes: 390,
+                    price: 10.00
                 }],
         },
         location: {
@@ -84,9 +93,7 @@ export default function Ticket() {
                         <p className={styles["card-child"]}>Tijd: {calculateMinutes(huidigeSessieExample.duration.start, huidigeSessieExample.duration.end)}</p>
                         <p className={styles["card-child"]}>Prijs: {calculateParkingPrice(calculateMinutes(huidigeSessieExample.duration.start, huidigeSessieExample.duration.end),huidigeSessieExample.parking.prices.price)}{huidigeSessieExample.parking.prices.currency}</p>
                     </Card>
-                    <PriceList classname={styles["prijzen-card"]} title="prijzen">
-                        
-                    </PriceList>
+                    <PriceList prices={huidigeSessieExample.parking.prices} classname={styles["prijzen-card"]} title="prijzen"/>                    
                 </div>
                 <MapBox />
 

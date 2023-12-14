@@ -1,7 +1,6 @@
 import styles from "./PriceList.module.css"
 import Card from "../Card/Card"
 export default function PriceList({ prices }) {
-
     const formatDuration = (minutes) => {
         const hours = Math.floor(minutes / 60);
         const mins = minutes % 60;

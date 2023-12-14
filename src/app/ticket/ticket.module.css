@@ -1,16 +1,9 @@
 .flex-container{
     width: 100%;
     display:flex;
-
-}
-.sessie-card{
-
+    gap: 1rem;
 }
 
 .card-child{
     color: #fff;
-}
-
-.prijzen-card{
-
 }
