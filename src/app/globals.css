@@ -82,6 +82,7 @@ main {
   margin:1rem auto;
   width: 90%;
   max-width: var(--max-width);
+  max-height: 85vh;
 }
 html,
 body {

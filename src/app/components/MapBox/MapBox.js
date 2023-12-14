@@ -16,16 +16,31 @@ const customMarkers = [ //TODO: This is just an example, remove this
         id: 1,
         type: "parking",
         prices: {
-            hour: "€1,00",
-            day: "€10,00",
-            week: "€50,00",
-            month: "€100,00",
+            currency: "€",
+            price: [
+                {
+                    minutes: 60,
+                    price: 0.00
+                },
+                {
+                    minutes: 120,
+                    price: 3.80
+                }, {
+                    minutes: 180,
+                    price: 5.80
+                },{
+                    minutes: 240,
+                    price: 7.90
+                },{
+                    minutes: 300,
+                    price: 10.00
+                }],
         },
         location: {
             lng: 3.21878,
             lat: 50.93014,
         },        
-        name: "Parking Spot 1",
+        name: "Zottekot",
         imageUrl: "/parking-icon.svg"
     },
     {
@@ -33,10 +48,25 @@ const customMarkers = [ //TODO: This is just an example, remove this
         id: 2,
         type: "parking",
         prices: {
-            hour: "€2,00",
-            day: "€10,00",
-            week: "€50,00",
-            month: "€100,00",
+            currency: "€",
+            price: [
+                {
+                    minutes: 60,
+                    price: 0.00
+                },
+                {
+                    minutes: 120,
+                    price: 3.90
+                }, {
+                    minutes: 180,
+                    price: 5.90
+                },{
+                    minutes: 240,
+                    price: 8.00
+                },{
+                    minutes: 300,
+                    price: 10.10
+                }],
         },
         location: {
             lng: 3.20961,
@@ -50,10 +80,25 @@ const customMarkers = [ //TODO: This is just an example, remove this
         id: 3,
         type: "parking",
         prices: {
-            hour: "€3,00",
-            day: "€10,00",
-            week: "€50,00",
-            month: "€100,00",
+            currency: "€",
+            price: [
+                {
+                    minutes: 60,
+                    price: 0.00
+                },
+                {
+                    minutes: 120,
+                    price: 3.80
+                }, {
+                    minutes: 180,
+                    price: 5.80
+                },{
+                    minutes: 240,
+                    price: 7.90
+                },{
+                    minutes: 300,
+                    price: 10.00
+                }],
         },
         location: {
             lng: 3.22114,
@@ -67,10 +112,25 @@ const customMarkers = [ //TODO: This is just an example, remove this
         id: 4,
         type: "parking",
         prices: {
-            hour: "€4,00",
-            day: "€10,00",
-            week: "€50,00",
-            month: "€100,00",
+            currency: "€",
+            price: [
+                {
+                    minutes: 60,
+                    price: 0.00
+                },
+                {
+                    minutes: 120,
+                    price: 3.80
+                }, {
+                    minutes: 180,
+                    price: 5.80
+                },{
+                    minutes: 240,
+                    price: 7.90
+                },{
+                    minutes: 300,
+                    price: 10.00
+                }],
         },
         location: {
             lng:  3.21099,
@@ -84,10 +144,25 @@ const customMarkers = [ //TODO: This is just an example, remove this
         id: 5,
         type: "parking",
         prices: {
-            hour: "€5,00",
-            day: "€10,00",
-            week: "€50,00",
-            month: "€100,00",
+            currency: "€",
+            price: [
+                {
+                    minutes: 90,
+                    price: 0.00
+                },
+                {
+                    minutes: 120,
+                    price: 3.80
+                }, {
+                    minutes: 180,
+                    price: 5.80
+                },{
+                    minutes: 240,
+                    price: 7.90
+                },{
+                    minutes: 300,
+                    price: 10.00
+                }],
         },
         location: {
             lng: 3.20922,
