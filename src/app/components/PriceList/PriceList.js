@@ -24,7 +24,7 @@ export default function PriceList({ prices }) {
             <ul>
                 {prices.price.map((tier, index) => (
                     <li key={index}>
-                        <p>Up to {formatDuration(tier.minutes)}: </p>
+                        <p>{formatDuration(tier.minutes)}: </p>
                         <p>{prices.currency}{tier.price.toFixed(2)}</p>
                     </li>
                 ))}
