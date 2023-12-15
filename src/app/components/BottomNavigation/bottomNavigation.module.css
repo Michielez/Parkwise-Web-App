@@ -8,6 +8,7 @@
     z-index: 1000;
     border-radius: 10px 10px 0 0;
     height: 8vh;
+    max-height: 10vh;
   }
   
   .bottom-navigation ul {
