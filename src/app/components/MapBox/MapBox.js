@@ -5,7 +5,7 @@ import { useEffect, useRef } from 'react';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
-import sytles from './MapBox.module.css';
+import sytles from './mapBox.module.css';
 
 mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAP_BOX_API_KEY;
 const markerSize = 25;

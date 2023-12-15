@@ -2,7 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 import ticketPic from 'public/ticket.svg'
-import rekeningPic from 'public/rekening.svg'
+import rekeningPic from 'public/Rekening.svg'
 import searchPic from 'public/black-search-icon.svg'
 import accountPic from 'public/person.svg'
 
