@@ -18,15 +18,20 @@ The page auto-updates as you edit the file.
 
 ## Deploy it
 
-[Official documentation](https://nextjs.org/docs/app/building-your-application/deploying) 
+[Official documentation of next.js](https://nextjs.org/docs/app/building-your-application/deploying) 
 
 ## Deploy it on DigitalOcean
 
-[Bron](https://docs.digitalocean.com/developer-center/deploying-a-next.js-application-on-a-digitalocean-droplet/)
+[Documentation for deploying on DigitalOcean](https://docs.digitalocean.com/developer-center/deploying-a-next.js-application-on-a-digitalocean-droplet/)
 
 ## Create a droplet
+
+Go to your DigitalOcean account and create a droplet. You should go for a Ubuntu 20.04 (LTS) x64 droplet. You can choose the lowest configuration possible if you want to test it out. Ofcourse upgrade the droplet if you want to use it for high traffic.
+
 ## Connect to the droplet
-   ssh root@<ip-of-droplet>
+```bash
+ssh root@<ip-of-droplet>
+```
 ## More swapstorage for building
    
 If you're using the lowest possible configuration for the droplet you'll next.js build will kill itself, because it doesn't have enough ram to run the build command. In order to fix this issue we'll asign more swap storage to the droplet.
@@ -66,12 +71,13 @@ server {
 
 Save and close the file. Create a symbolic link to enable the configuration:
 
+```bash	
 sudo ln -s /etc/nginx/sites-available/nextjs /etc/nginx/sites-enabled/
-
+```
 Test the Nginx configuration for any syntax errors:
-
+```bash
 sudo nginx -t
-
+```
 If successful, restart Nginx:
 
 ```bash
@@ -88,3 +94,39 @@ npm run build # this will take a while
 npm run start
 ```
 Now go to the http://ip-of-your-droplet and you should see your next.js app running.
+
+## Setting up PM2 Process Manager
+
+We ran npm start from within our Droplet. Sometimes this command may stop running for reasons like the server restarted or it needed to install updates. We will use a tool called PM2 to make sure that our Next.js application is always running. PM2 will even restart the Next.js application if it goes down.
+
+To install PM2 globally run:
+
+```bash
+npm install -g pm2
+```
+
+Navigate to the next.js
+
+```bash
+cd /var/www/your-next.js-app
+```
+
+Start the Next.js application with PM2:
+
+```bash
+pm2 start npm --name "<your-next-js-application-name>" -- start
+```
+
+To ensure PM2 starts on boot:
+
+```bash
+pm2 startup 
+```
+
+Save the current PM2 processes:
+
+```bash
+pm2 save
+```
+
+Congratulations! You have now deployed your Next.js application to a DigitalOcean Droplet.
