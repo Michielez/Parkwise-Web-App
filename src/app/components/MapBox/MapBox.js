@@ -6,175 +6,13 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 import sytles from './mapBox.module.css';
+import mockCustomMarkers from '@/app/mockData/mockData';
 
 mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAP_BOX_API_KEY;
 const markerSize = 25;
 
-const customMarkers = [ //TODO: This is just an example, remove this
-    {
 
-        id: 1,
-        type: "parking",
-        prices: {
-            currency: "€",
-            price: [
-                {
-                    minutes: 60,
-                    price: 0.00
-                },
-                {
-                    minutes: 120,
-                    price: 3.80
-                }, {
-                    minutes: 180,
-                    price: 5.80
-                },{
-                    minutes: 240,
-                    price: 7.90
-                },{
-                    minutes: 300,
-                    price: 10.00
-                }],
-        },
-        location: {
-            lng: 3.21878,
-            lat: 50.93014,
-        },        
-        name: "Zottekot",
-        imageUrl: "/parking-icon.svg"
-    },
-    {
-
-        id: 2,
-        type: "parking",
-        prices: {
-            currency: "€",
-            price: [
-                {
-                    minutes: 60,
-                    price: 0.00
-                },
-                {
-                    minutes: 120,
-                    price: 3.90
-                }, {
-                    minutes: 180,
-                    price: 5.90
-                },{
-                    minutes: 240,
-                    price: 8.00
-                },{
-                    minutes: 300,
-                    price: 10.10
-                }],
-        },
-        location: {
-            lng: 3.20961,
-            lat: 50.92927,
-        },        
-        name: "Parking Spot 2",
-        imageUrl: "/parking-icon.svg"
-    },
-    {
-
-        id: 3,
-        type: "parking",
-        prices: {
-            currency: "€",
-            price: [
-                {
-                    minutes: 60,
-                    price: 0.00
-                },
-                {
-                    minutes: 120,
-                    price: 3.80
-                }, {
-                    minutes: 180,
-                    price: 5.80
-                },{
-                    minutes: 240,
-                    price: 7.90
-                },{
-                    minutes: 300,
-                    price: 10.00
-                }],
-        },
-        location: {
-            lng: 3.22114,
-            lat: 50.92849,
-        },        
-        name: "Parking Spot 3",
-        imageUrl: "/parking-icon.svg"
-    },
-    {
-
-        id: 4,
-        type: "parking",
-        prices: {
-            currency: "€",
-            price: [
-                {
-                    minutes: 60,
-                    price: 0.00
-                },
-                {
-                    minutes: 120,
-                    price: 3.80
-                }, {
-                    minutes: 180,
-                    price: 5.80
-                },{
-                    minutes: 240,
-                    price: 7.90
-                },{
-                    minutes: 300,
-                    price: 10.00
-                }],
-        },
-        location: {
-            lng:  3.21099,
-            lat: 50.92564,
-        },        
-        name: "Parking Spot 4",
-        imageUrl: "/parking-icon.svg"
-    },
-    {
-
-        id: 5,
-        type: "parking",
-        prices: {
-            currency: "€",
-            price: [
-                {
-                    minutes: 90,
-                    price: 0.00
-                },
-                {
-                    minutes: 120,
-                    price: 3.80
-                }, {
-                    minutes: 180,
-                    price: 5.80
-                },{
-                    minutes: 240,
-                    price: 7.90
-                },{
-                    minutes: 300,
-                    price: 10.00
-                }],
-        },
-        location: {
-            lng: 3.20922,
-            lat: 50.92661,
-        },        
-        name: "Parking Spot 5",
-        imageUrl: "/parking-icon.svg"
-    }
-]
-
-
-export default function MapBox({ location, markers = customMarkers, onMarkerClick}) {
+export default function MapBox({ location, markers = mockCustomMarkers.parkings, onMarkerClick}) {
     const mapContainerRef = useRef(null);
     const mapRef = useRef(null);
     const markerRef = useRef(null);
@@ -213,7 +51,7 @@ export default function MapBox({ location, markers = customMarkers, onMarkerClic
 
                 const el = document.createElement('div');
                 el.className = 'custom-marker'
-                el.style.backgroundImage = 'url(' + marker.imageUrl + ')';
+                el.style.backgroundImage = 'url(/parking-icon.svg)';
                 el.style.width = markerSize + 'px';
                 el.style.height = markerSize + 'px';
                 el.style.backgroundSize = 'cover';

@@ -36,9 +36,8 @@ const RegisterForm = ({handleCancel}) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
     const parkwiseAPI = new ParkWiseAPI()
-    //TODO remove when api is completed! parkwiseAPI.authenticate.register(formData.)
+    parkwiseAPI.authenticate.register(formData)
   };
 
   return (

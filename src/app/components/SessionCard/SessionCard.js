@@ -1,5 +1,4 @@
 import styles from "./sessionCard.module.css"
-
 import Card from "../Card/Card"
 import Image from "next/image"
 
@@ -9,7 +8,6 @@ import IconTimeWhite from "public/time-white.svg"
 import IconParkingWhite from "public/parking-white-icon.svg"
 
 export default function SessionCard({ session }) {
-
     const calculateMinutes = (start, end) => {
         const startDate = new Date(start);
         const endDate = new Date(end);
@@ -18,23 +16,30 @@ export default function SessionCard({ session }) {
         return minutes;
     }
 
-    const calculateParkingPrice = (durationInMinutes, prices) => {
-        // Sort the prices array in ascending order of minutes
-        let sortedPrices = prices.sort((a, b) => a.minutes - b.minutes);
-
+    const calculateParkingPrice = (durationInMinutes, priceRate) => {
+        // Convert the priceRate object to an array of [minutes, price] pairs
+        let priceEntries = Object.entries(priceRate).map(([minutes, price]) => ({
+            minutes: parseInt(minutes),
+            price
+        }));
+    
+        // Sort the price entries in ascending order of minutes
+        priceEntries.sort((a, b) => a.minutes - b.minutes);
+    
         // Default to the highest price if the duration exceeds all tiers
-        let calculatedPrice = sortedPrices[sortedPrices.length - 1].price;
-
-        // Iterate over the prices to find the right tier
-        for (let i = 0; i < sortedPrices.length; i++) {
-            if (durationInMinutes <= sortedPrices[i].minutes) {
-                calculatedPrice = sortedPrices[i].price;
+        let calculatedPrice = priceEntries[priceEntries.length - 1].price;
+    
+        // Iterate over the price entries to find the right tier
+        for (let entry of priceEntries) {
+            if (durationInMinutes <= entry.minutes) {
+                calculatedPrice = entry.price;
                 break; // Stop the loop once the correct tier is found
             }
         }
-
+    
         return calculatedPrice;
-    }
+    };
+    
 
     const refactorMinutes = (minutes) => {
         let hours = Math.floor(minutes / 60);
@@ -43,12 +48,12 @@ export default function SessionCard({ session }) {
     }
     return (
         <Card className={styles["sessie-card"]} title="Sessie">
-            <ul>
+          <ul>
             <li className={styles["card-child"]}><Image src={IconParkingWhite} /> {session.parking.name}</li>
             <li className={styles["card-child"]}><Image src={IconCarWhite} /> {session.car}</li>
             <li className={styles["card-child"]}><Image src={IconTimeWhite} /> {refactorMinutes(calculateMinutes(session.duration.start, session.duration.end))}</li>
-            <li className={styles["card-child"]}><Image src={IconMoneyWhite} /> {calculateParkingPrice(calculateMinutes(session.duration.start, session.duration.end), session.parking.prices.price)}{session.parking.prices.currency}</li>
+            <li className={styles["card-child"]}><Image src={IconMoneyWhite} /> {session.parking.currency}{calculateParkingPrice(calculateMinutes(session.duration.start, session.duration.end), session.parking.priceRates)}</li>
             </ul>
-            </Card>
+        </Card>
     )
 } 

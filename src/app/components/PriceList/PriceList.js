@@ -1,6 +1,7 @@
-import styles from "./PriceList.module.css"
-import Card from "../Card/Card"
-export default function PriceList({ prices }) {
+import React from 'react';
+import Card from "../Card/Card";
+
+export default function PriceList({ priceRate, currency }) {
     const formatDuration = (minutes) => {
         const hours = Math.floor(minutes / 60);
         const mins = minutes % 60;
@@ -22,13 +23,13 @@ export default function PriceList({ prices }) {
     return (
         <Card title={`Prijs`}>
             <ul>
-                {prices.price.map((tier, index) => (
+                {Object.entries(priceRate).map(([minutes, price], index) => (
                     <li key={index}>
-                        <p>{formatDuration(tier.minutes)}: </p>
-                        <p>{prices.currency}{tier.price.toFixed(2)}</p>
+                        <p>{formatDuration(parseInt(minutes))}: </p>
+                        <p>{currency}{parseFloat(price).toFixed(2)}</p>
                     </li>
                 ))}
             </ul>
         </Card>
-    )
+    );
 }

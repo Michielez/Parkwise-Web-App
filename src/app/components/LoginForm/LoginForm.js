@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import FormField from '../FormField/FormField';
 import styles from './loginForm.module.css';
+import ParkWise from '@/app/api/parkwise';
 
 const loginForm = ({handleRegisterClick}) => {
     const [formData, setFormData] = useState({
@@ -24,24 +25,12 @@ const loginForm = ({handleRegisterClick}) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-      
-        const requestOptions = {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData)
-        };
-      
-        try {
-          const response = await fetch('https://api.parkwise.be/auth/login', requestOptions);
-          if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-          }
-          const data = await response.json();
-
-          console.log(data);
-        } catch (error) {
-          console.error('There was an error!', error);
-        }
+        const ParkWiseAPI = new ParkWise();
+        const responseData = await ParkWiseAPI.authenticate.login(
+            formData.username,
+            formData.password
+        )
+        console.log(responseData)
       };
 
 

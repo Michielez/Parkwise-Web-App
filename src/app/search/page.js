@@ -11,7 +11,8 @@ export default function Search(){
 
     const onMarkerClick = (marker) => {
         marker.type == "parking";
-        setPrices(marker.prices);
+        console.log(marker);
+        setPrices(marker.priceRates);
         setShowPriceList(true);
     }
 
@@ -20,7 +21,7 @@ export default function Search(){
         <main>
             <h1>Search</h1>
             <MapBox onMarkerClick = {onMarkerClick}/>
-            {showPriceList && <PriceList prices = {prices}/>}
+            {showPriceList && <PriceList priceRate = {prices}/>}
         </main>
         <BottomNavigation />
         </>
