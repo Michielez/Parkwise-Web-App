@@ -69,7 +69,12 @@ export default function Ticket({ currentSession = MockData.account.currentSessio
 
                 </div>
                 <p className={styles.p}>{address}</p>
-                <MapBox currentSession={currentSession} onMarkerClick={onMarkerClick}/>
+                <MapBox 
+                    initialLocation={currentSession.parking.location}
+                    useOwnLocation={false}
+                    currentSession={currentSession} 
+                    onMarkerClick={onMarkerClick}
+                />
             </main>
             <BottomNavigation />
         </>
