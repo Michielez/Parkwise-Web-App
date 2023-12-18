@@ -1,30 +1,37 @@
-.form{
+.form {
     width: 100%;
 }
-.form .formButtons{
+
+.form .formButtons {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     width: 100%;
 }
-.form .cancelButton{
-    margin: 1rem 0 1rem auto;
 
-}
-.form .saveButton{
-    margin: 1rem auto 1rem 0;
-}
-.form .saveButton, .form .cancelButton{
-    width: 48%;
+.form button {
+    width: 30%;
     padding: 0.5rem;
     border-radius: 0.5rem;
     border: solid 1px white;
     background-color: #000;
     color: white;
+    margin: 1rem 0.5rem;
+    flex-grow: 1;
 }
 
-.form .saveButton:hover, .form .cancelButton:hover{
+.form button:hover {
     background-color: #fff;
     color: #000;
     cursor: pointer;
+}
+
+/* Styles for Back and Next buttons */
+.form .backButton, .form .nextButton {
+    background-color: #333; /* Slightly different color for distinction */
+}
+
+.form .backButton:hover, .form .nextButton:hover {
+    background-color: #ddd;
+    color: #333;
 }

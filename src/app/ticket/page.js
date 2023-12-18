@@ -1,3 +1,4 @@
+"use client";
 import BottomNavigation from "../components/BottomNavigation/BottomNavigation"
 import PriceList from "../components/PriceList/PriceList"
 import Card from "../components/Card/Card"
@@ -10,6 +11,11 @@ import styles from "./ticket.module.css"
 
 
 export default function Ticket({currentSession = MockData.account.currentSession}) {
+
+    const onMarkerClick = () => {
+        console.log("marker clicked")
+    }
+
     return (
         <>
             <main>
@@ -18,7 +24,7 @@ export default function Ticket({currentSession = MockData.account.currentSession
                     <SessionCard session={currentSession} />
                     <PriceList priceRate={currentSession.parking.priceRates} currency={currentSession.parking.currency} classname={styles["prijzen-card"]} title="prijzen" />
                 </div>
-                <MapBox />
+                <MapBox currentSession={currentSession} onMarkerClick={onMarkerClick}/>
 
             </main>
             <BottomNavigation />

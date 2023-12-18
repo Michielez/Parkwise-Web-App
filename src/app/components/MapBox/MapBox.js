@@ -12,7 +12,7 @@ mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAP_BOX_API_KEY;
 const markerSize = 25;
 
 
-export default function MapBox({ location, markers = mockCustomMarkers.parkings, onMarkerClick}) {
+export default function MapBox({ currentSession, location, locationIcon="/parking-icon.svg", markers = mockCustomMarkers.parkings, onMarkerClick}) {
     const mapContainerRef = useRef(null);
     const mapRef = useRef(null);
     const markerRef = useRef(null);
@@ -35,6 +35,23 @@ export default function MapBox({ location, markers = mockCustomMarkers.parkings,
     }, []);
 
     useEffect(() => {
+        if (currentSession && mapRef.current) {
+            const el = document.createElement('div');
+                el.className = 'custom-marker'
+                el.style.backgroundImage = 'url(' + '/parking-blue-icon.svg' + ')';
+                el.style.width = markerSize + 'px';
+                el.style.height = markerSize + 'px';
+                el.style.backgroundSize = 'cover';
+                el.style.zIndex = 2;
+                new mapboxgl.Marker(el)
+                    .setLngLat([currentSession.parking.location.lng, currentSession.parking.location.lat])
+                    .setPopup(new mapboxgl.Popup({offset: markerSize/2})
+                    .setHTML(`<h3 style='color:black'>${currentSession.parking.name}</h3>`))
+                    .addTo(mapRef.current);
+                }
+        }, [currentSession])
+
+    useEffect(() => {
         if (location && mapRef.current) {
             markerRef.current.setLngLat(location).addTo(mapRef.current);
             mapRef.current.flyTo({
@@ -51,7 +68,7 @@ export default function MapBox({ location, markers = mockCustomMarkers.parkings,
 
                 const el = document.createElement('div');
                 el.className = 'custom-marker'
-                el.style.backgroundImage = 'url(/parking-icon.svg)';
+                el.style.backgroundImage = 'url(' + locationIcon + ')';
                 el.style.width = markerSize + 'px';
                 el.style.height = markerSize + 'px';
                 el.style.backgroundSize = 'cover';

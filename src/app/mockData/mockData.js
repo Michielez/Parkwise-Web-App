@@ -14,7 +14,7 @@ const parkings = [
             lng: 3.21878,
             lat: 50.93014,
         },
-        name: "Zottekot",
+        name: "Parking Spar",
     },
     {
         id: 2,
@@ -100,7 +100,7 @@ const account = {
         car: "1-ABC-123",
         parking: {
             id: 1,
-            name: "Zottekot",
+            name: "Parking Spar",
             currency: "€",
             location: {
                 lng: 3.21878,
@@ -129,7 +129,7 @@ const account = {
             },
             parking: {
                 id: 1,
-                name: "Zottekot",
+                name: "Parking Spar",
                 currency: "€",
                 location: {
                     lng: 3.21878,
@@ -170,7 +170,7 @@ const account = {
                     lng: 3.21878,
                     lat: 50.93014,
                 },
-                name: "Zottekot",
+                name: "Parking Spar",
             },
             payment: {
                 method: "Bancontact", time: "2021-05-05T15:00:00.000Z", amount: 10.00, currency: "€"
@@ -185,7 +185,7 @@ const account = {
             price: 5.00,
             parking: {
                 id: 1,
-                name: "Zottekot",
+                name: "Parking Spar",
                 location: {
                     lng: 3.21878,
                     lat: 50.93014,
@@ -217,7 +217,7 @@ const account = {
             price: 7.50,
             parking: {
                 id: 1,
-                name: "Zottekot",
+                name: "Parking Spar",
                 location: {
                     lng: 3.21878,
                     lat: 50.93014,
@@ -249,7 +249,7 @@ const account = {
             price: 5.00,
             parking: {
                 id: 1,
-                name: "Zottekot",
+                name: "Parking Spar",
                 location: {
                     lng: 3.21878,
                     lat: 50.93014,

@@ -4,6 +4,8 @@ import BottomNavigation from "../components/BottomNavigation/BottomNavigation"
 import MapBox from "../components/MapBox/MapBox"
 import PriceList from "../components/PriceList/PriceList"
 
+import MockData from "@/app/mockData/mockData"
+
 export default function Search(){
 
     const [prices, setPrices] = useState(null)
@@ -20,7 +22,7 @@ export default function Search(){
         <>
         <main>
             <h1>Search</h1>
-            <MapBox onMarkerClick = {onMarkerClick}/>
+            <MapBox currentSession={MockData.account.currentSession} onMarkerClick = {onMarkerClick}/>
             {showPriceList && <PriceList priceRate = {prices}/>}
         </main>
         <BottomNavigation />
