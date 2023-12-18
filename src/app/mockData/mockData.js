@@ -95,6 +95,7 @@ const account = {
     city: "Roeselare",
     zip: "8800",
     country: "Belgium",
+    language: "nl",
     currentSession: {
         id: 1,
         car: "1-ABC-123",

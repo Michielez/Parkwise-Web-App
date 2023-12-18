@@ -23,6 +23,9 @@ export default function Search(){
         <main>
             <h1>Search</h1>
             <MapBox currentSession={MockData.account.currentSession} onMarkerClick = {onMarkerClick}/>
+            <div>
+                
+            </div>
             {showPriceList && <PriceList priceRate = {prices}/>}
         </main>
         <BottomNavigation />

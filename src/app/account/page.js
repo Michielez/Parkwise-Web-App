@@ -10,6 +10,7 @@ import RegisterForm from "../components/RegisterForm/RegisterForm"
 
 export default function Account() {
     const [showRegisterForm, setShowRegisterForm] = useState(false);
+    const [loggedIn, setLoggedIn] = useState(false);
 
     const handleRegisterClick = () => {
         setShowRegisterForm(true);
@@ -23,8 +24,10 @@ export default function Account() {
         <>
         <main>
             <h1>Account</h1>
-            {!showRegisterForm && <LoginForm handleRegisterClick={handleRegisterClick} />}
-            {showRegisterForm && <RegisterForm handleCancel={handleCancelClick} />}
+            
+            {!showRegisterForm && !loggedIn && <LoginForm handleRegisterClick={handleRegisterClick} />}
+            {showRegisterForm && !loggedIn && <RegisterForm handleCancel={handleCancelClick} />}
+            {loggedIn && <p></p>}
         </main>
         <BottomNavigation />
         </>

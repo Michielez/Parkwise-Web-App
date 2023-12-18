@@ -49,10 +49,10 @@ export default function SessionCard({ session }) {
     return (
         <Card className={styles["sessie-card"]} title="Sessie">
           <ul>
-            <li className={styles["card-child"]}><Image src={IconParkingWhite} /> {session.parking.name}</li>
-            <li className={styles["card-child"]}><Image src={IconCarWhite} /> {session.car}</li>
-            <li className={styles["card-child"]}><Image src={IconTimeWhite} /> {refactorMinutes(calculateMinutes(session.duration.start, session.duration.end))}</li>
-            <li className={styles["card-child"]}><Image src={IconMoneyWhite} /> {session.parking.currency}{calculateParkingPrice(calculateMinutes(session.duration.start, session.duration.end), session.parking.priceRates)}</li>
+            <li className={styles["card-child"]}><Image src={IconParkingWhite} alt="Parking icon"/> {session.parking.name}</li>
+            <li className={styles["card-child"]}><Image src={IconCarWhite} alt="Car icon" /> {session.car}</li>
+            <li className={styles["card-child"]}><Image src={IconTimeWhite} alt="Time icon"/> {refactorMinutes(calculateMinutes(session.duration.start, session.duration.end))}</li>
+            <li className={styles["card-child"]}><Image src={IconMoneyWhite} alt="Money icon"/> {session.parking.currency}{calculateParkingPrice(calculateMinutes(session.duration.start, session.duration.end), session.parking.priceRates)}</li>
             </ul>
         </Card>
     )
