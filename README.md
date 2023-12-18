@@ -130,3 +130,35 @@ pm2 save
 ```
 
 Congratulations! You have now deployed your Next.js application to a DigitalOcean Droplet.
+
+## Update your application
+
+If you made any changes to your next.js application you can update it by doing the following:
+
+```bash
+cd /var/www/your-next.js-app
+git pull
+```
+If you have added or changes any dependencies you should run the following:
+  
+```bash
+npm install --legacy-peer-deps
+```
+Now build the application again:
+
+```bash
+npm run build
+```
+
+Restart the application:  
+(you can check the name of your application by running pm2 list)
+```bash
+pm2 restart <your-next-js-application-name>
+```
+
+Check status:
+```bash
+pm2 status
+```
+
+Your application should now be updated. Reload the page to see the changes happen.
