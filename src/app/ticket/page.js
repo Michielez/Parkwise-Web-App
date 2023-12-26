@@ -7,7 +7,7 @@ import MockData from "@/app/mockData/mockData"
 import { useEffect, useState } from 'react';
 
 import styles from "./ticket.module.css"
-import GoogleMapsNavigateToButton from "../components/GoogleMapsNavigateToButton/GoogleMapsNavigateToButton";
+import NavigateButton from "../components/NavigateButton/NavigateButton";
 
 
 export default function Ticket({ currentSession = MockData.account.currentSession }) {
@@ -65,7 +65,7 @@ export default function Ticket({ currentSession = MockData.account.currentSessio
                     <PriceList priceRate={currentSession.parking.priceRates} currency={currentSession.parking.currency} classname={styles["prijzen-card"]} title="Prijzen" />
                 </div>
                 <div className={styles["flex-container"]}>
-                    <GoogleMapsNavigateToButton location={currentSession.parking.location} />
+                    <NavigateButton location={currentSession.parking.location} />
 
                 </div>
                 <p className={styles.p}>{address}</p>

@@ -4,9 +4,9 @@ import BottomNavigation from "../components/BottomNavigation/BottomNavigation"
 import MapBox from "../components/MapBox/MapBox"
 import PriceList from "../components/PriceList/PriceList"
 import styles from "./search.module.css"
+import NavigationCard from "../components/NavigationCard/NavigationCard";
 
 import MockData from "@/app/mockData/mockData"
-import GoogleMapsNavigateToButton from "../components/GoogleMapsNavigateToButton/GoogleMapsNavigateToButton";
 import Card from "../components/Card/Card";
 
 export default function Search(){
@@ -29,14 +29,15 @@ export default function Search(){
             />
             <div className={styles["flex-container"]}>
                 {showInformation && <PriceList className={styles["price-list"]} priceRate={marker.priceRates}/>}
-                {showInformation && <Card className={styles["general-information-card"]} title={"General information"}> 
-                        <GoogleMapsNavigateToButton location={marker.location}/>    
+                {showInformation && 
+                    <NavigationCard className={styles["general-information-card"]} title={"General information"}> 
                         <ul>
                             <li>Address: <p>Anne Frankstraat 17, 8870 Izegem, West Flanders, Belgium</p></li>
                             <li>Parkeer plaatsen: <p>150</p></li>
                             <li>Vrije plaatsen: <p>29</p></li>
                         </ul>
-                    </Card>}
+                    </NavigationCard>
+                }
             </div>
             
         </main>

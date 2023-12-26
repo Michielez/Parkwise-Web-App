@@ -1,5 +1,5 @@
-import styles from "./googleMapsNavigateToButton.module.css"
-export default function GoogleMapsNavigateToButton({ location }) {
+import styles from "./navigateButton.module.css"
+export default function NavigateButton({ location }) {
     const navigate = () => {
         window.open(`https://www.google.com/maps/dir/?api=1&destination=${location.lat},${location.lng}`, "_blank")
     }
