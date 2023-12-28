@@ -85,8 +85,8 @@ const RegisterForm = ({ handleCancel }) => {
         {currentStep === sections.length - 1 && (
           <button type="submit" className={styles.saveButton}>Registreer</button>
         )}
-        <button type="button" onClick={handleCancel} className={styles.cancelButton}>Login</button>
       </div>
+      <p>Al een account? <button type="button" onClick={handleCancel} className={styles.loginButton}>Login</button></p>
     </form>
   );
 };

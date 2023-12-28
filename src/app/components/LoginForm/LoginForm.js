@@ -4,7 +4,7 @@ import FormField from '../FormField/FormField';
 import styles from './loginForm.module.css';
 import ParkWise from '@/app/api/parkwise';
 
-const loginForm = ({handleRegisterClick}) => {
+const loginForm = ({ handleRegisterClick }) => {
     const [formData, setFormData] = useState({
         username: '',
         password: ''
@@ -31,7 +31,7 @@ const loginForm = ({handleRegisterClick}) => {
             formData.password
         )
         console.log(responseData)
-      };
+    };
 
 
     return (
@@ -46,10 +46,8 @@ const loginForm = ({handleRegisterClick}) => {
                     onChange={handleChange}
                 />
             ))}
-            <div className={styles.formButtons}>
-                <button type="submit" className={styles.loginButton}>Login</button>
-                <button type="button" onClick={handleRegisterClick} className={styles.registerButton}>Registreer</button>
-            </div>
+            <button type="submit" className={styles.loginButton}>Login</button>
+            <p>Geen account? <button type="button" onClick={handleRegisterClick} className={styles.registerButton}>registreer!</button></p> 
         </form>
     );
 };

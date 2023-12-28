@@ -7,20 +7,20 @@
     justify-content: space-between;
     align-items: center;
     width: 100%;
+    gap: 1rem;
+    margin-bottom: 1rem;
 }
 
-.form button {
-    width: 30%;
+.form .formButtons button {
     padding: 0.5rem;
     border-radius: 0.5rem;
     border: solid 1px white;
     background-color: #000;
     color: white;
-    margin: 1rem 0.5rem;
     flex-grow: 1;
 }
 
-.form button:hover {
+.form .formButtons button:hover {
     background-color: #fff;
     color: #000;
     cursor: pointer;
@@ -34,4 +34,17 @@
 .form .backButton:hover, .form .nextButton:hover {
     background-color: #ddd;
     color: #333;
+}
+.form p{
+    text-align: center;
+}
+.form .loginButton {
+    background-color: transparent;
+    border: none;
+    font-size: 1rem;
+    text-decoration: underline;
+}
+
+.form .loginButton:hover{
+    cursor: pointer;
 }

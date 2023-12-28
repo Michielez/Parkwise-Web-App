@@ -14,8 +14,8 @@
 .form .loginButton{
     margin: 1rem auto 1rem 0;
 }
-.form .loginButton, .form .registerButton{
-    width: 48%;
+.form .loginButton{
+    width: 100%;
     padding: 0.5rem;
     border-radius: 0.5rem;
     border: solid 1px white;
@@ -23,8 +23,24 @@
     color: white;
 }
 
-.form .loginButton:hover, .form .registerButton:hover{
+.form .loginButton:hover{
     background-color: #fff;
     color: #000;
     cursor: pointer;
+}
+.form .registerButtonContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.form .registerButton{
+    color: #fff;
+    background-color: transparent;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    text-decoration: underline;
+}
+.form p {
+    text-align: center;
 }
