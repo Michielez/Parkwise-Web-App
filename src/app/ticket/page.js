@@ -64,11 +64,10 @@ export default function Ticket({ currentSession = MockData.account.currentSessio
                     <SessionCard session={currentSession} />
                     <PriceList priceRate={currentSession.parking.priceRates} currency={currentSession.parking.currency} classname={styles["prijzen-card"]} title="Prijzen" />
                 </div>
-                <div className={styles["flex-container"]}>
+                <div className={styles["flex-container-address"]}>
+                    <p className={styles.p}>{address}</p>
                     <NavigateButton location={currentSession.parking.location} />
-
                 </div>
-                <p className={styles.p}>{address}</p>
                 <MapBox 
                     initialLocation={currentSession.parking.location}
                     useOwnLocation={false}

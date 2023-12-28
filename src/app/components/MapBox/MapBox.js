@@ -16,7 +16,7 @@ export default function MapBox({
     useOwnLocation = true,
     currentSession,
     initialLocation = { lng: 3.224700, lat: 51.209348 },
-    locationIcon = "/parking-icon.svg",
+    locationIcon = "/icons/black/parking.svg",
     markers = mockCustomMarkers.parkings,
     onMarkerClick = () => { }
 }) {
@@ -45,7 +45,7 @@ export default function MapBox({
         if (currentSession && mapRef.current) {
             const el = document.createElement('div');
             el.className = 'custom-marker'
-            el.style.backgroundImage = 'url(' + '/parking-blue-icon.svg' + ')';
+            el.style.backgroundImage = 'url(' + '/icons/blue/parking.svg' + ')';
             el.style.width = markerSize + 'px';
             el.style.height = markerSize + 'px';
             el.style.backgroundSize = 'cover';

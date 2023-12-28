@@ -1,10 +1,10 @@
 import Image from 'next/image'
 import Link from 'next/link'
 
-import ticketPic from 'public/ticket.svg'
-import rekeningPic from 'public/Rekening.svg'
-import searchPic from 'public/black-search-icon.svg'
-import accountPic from 'public/person.svg'
+import ticketPic from 'public/icons/white/ticket.svg'
+import rekeningPic from 'public/icons/white/rekening.svg'
+import searchPic from 'public/icons/white/search.svg'
+import accountPic from 'public/icons/white/person.svg'
 
 import styles from './bottomNavigation.module.css'
 

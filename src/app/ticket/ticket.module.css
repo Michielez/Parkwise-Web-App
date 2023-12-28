@@ -4,8 +4,12 @@
     gap: 1rem;
     flex-wrap: wrap;
 }
-
-.p{
-    margin-top: 1rem;
+.flex-container-address{
+    width: 100%;
+    display:flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
 }
 
