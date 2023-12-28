@@ -96,7 +96,7 @@ export default function MapBox({
                 el.style.width = markerSize + 'px';
                 el.style.height = markerSize + 'px';
                 el.style.backgroundSize = 'cover';
-                el.style.backgroundImage = 'url(/user-location-icon.svg)';
+                el.style.backgroundImage = 'url(/icons/blue/person.svg)';
 
                 new mapboxgl.Marker(el)
                     .setLngLat(userLocation)
