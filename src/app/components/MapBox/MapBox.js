@@ -14,7 +14,7 @@ const markerSize = 25;
 
 export default function MapBox({
     useOwnLocation = true,
-    currentSession, 
+    currentSession,
     initialLocation = { lng: 3.224700, lat: 51.209348 },
     locationIcon = "/parking-icon.svg",
     markers = mockCustomMarkers.parkings,
@@ -53,8 +53,12 @@ export default function MapBox({
             new mapboxgl.Marker(el)
                 .setLngLat([currentSession.parking.location.lng, currentSession.parking.location.lat])
                 .setPopup(new mapboxgl.Popup({ offset: markerSize / 2 })
-                    .setHTML(`<h3 style='color:black'>${currentSession.parking.name}</h3>`))
+                .setHTML(`
+                    <h3 style='color:black'>${currentSession.parking.name}</h3>
+                    <p style='color:black'>You're parked here</p>
+                `))
                 .addTo(mapRef.current);
+            
         }
     }, [currentSession])
 
@@ -72,7 +76,7 @@ export default function MapBox({
                 const newMarker = new mapboxgl.Marker(el)
                     .setLngLat([marker.location.lng, marker.location.lat])
                     .setPopup(new mapboxgl.Popup({ offset: markerSize / 2 })
-                        .setHTML(`<h3 style='color:black'>${marker.name}</h3>`))
+                    .setHTML(`<h3 style='color:black'>${marker.name}</h3>`))
                     .addTo(mapRef.current);
                 newMarker.getElement().addEventListener('click', (e) => {
                     e.preventDefault();
