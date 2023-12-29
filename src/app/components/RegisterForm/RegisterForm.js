@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import FormField from '../FormField/FormField';
 import styles from './registerForm.module.css';
-import ParkWiseAPI from '../../api/parkwise';
+import ParkwiseLaravelAPI from '../../api/parkwise-laravel-api';
 
 const RegisterForm = ({ handleCancel }) => {
   const [formData, setFormData] = useState({
@@ -58,7 +58,7 @@ const RegisterForm = ({ handleCancel }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const parkwiseAPI = new ParkWiseAPI();
+    const parkwiseAPI = new ParkwiseLaravelAPI();
     parkwiseAPI.authenticate.register(formData);
   };
 

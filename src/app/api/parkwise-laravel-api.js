@@ -1,4 +1,4 @@
-class ParkWise {
+class ParkWiseLaravelAPI {
     constructor(baseURL = 'https://api.parkwise.be', language = 'en') {
         this.baseURL = baseURL;
         this.language = language;
@@ -339,4 +339,4 @@ class ParkWise {
 
 }
 
-export default ParkWise;
+export default ParkWiseLaravelAPI;

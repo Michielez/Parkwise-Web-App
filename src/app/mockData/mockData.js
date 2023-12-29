@@ -1,3 +1,40 @@
+const strapi = {
+    id: 1,
+    type: "parking",
+    name: "Spar",
+    location: {
+        lng: 3.21878,
+        lat: 50.93014,
+    },
+    currency: {
+        id: 1,
+        symbol: "€",
+        text: "Euro"
+    },
+    priceRates: [
+        {
+            "duration": 60,
+            "price": 0.00
+        },
+        {
+            "duration": 120,
+            "price": 3.80
+        },
+        {
+            "duration": 180,
+            "price": 5.80
+        },
+        {
+            "duration": 240,
+            "price": 7.90
+        },
+        {
+            "duration": 300,
+            "price": 10.00
+        }
+    ]
+
+}
 const parkings = [
     {
         id: 1,
@@ -89,7 +126,7 @@ const account = {
     username: "Michiel",
     firstName: "Michiel",
     lastName: "Stragier",
-    email:"Michiel.stragier@student.howest.be",
+    email: "Michiel.stragier@student.howest.be",
     tel: "0470 12 34 56",
     address: "Kortrijksestraat 123",
     city: "Roeselare",
@@ -146,7 +183,10 @@ const account = {
 
             },
             payment: {
-                method: "Bancontact", time: "2021-05-05T15:00:00.000Z", amount: 10.00, currency: "€"
+                method: "Bancontact", 
+                time: "2021-05-05T15:00:00.000Z", 
+                amount: 10.00, 
+                currency: "€"
             },
         },
         {

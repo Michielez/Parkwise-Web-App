@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import FormField from '../FormField/FormField';
 import styles from './loginForm.module.css';
-import ParkWise from '@/app/api/parkwise';
+import ParkwiseLaravelAPI from '@/app/api/parkwise-laravel-api';
 
 const loginForm = ({ handleRegisterClick }) => {
     const [formData, setFormData] = useState({
@@ -25,7 +25,7 @@ const loginForm = ({ handleRegisterClick }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const ParkWiseAPI = new ParkWise();
+        const ParkWiseAPI = new ParkwiseLaravelAPI();
         const responseData = await ParkWiseAPI.authenticate.login(
             formData.username,
             formData.password

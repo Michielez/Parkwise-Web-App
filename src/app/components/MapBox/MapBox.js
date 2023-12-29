@@ -9,7 +9,7 @@ import sytles from './mapBox.module.css';
 import mockCustomMarkers from '@/app/mockData/mockData';
 
 mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAP_BOX_API_KEY;
-const markerSize = 25;
+
 
 
 export default function MapBox({
@@ -20,6 +20,7 @@ export default function MapBox({
     markers = mockCustomMarkers.parkings,
     onMarkerClick = () => { }
 }) {
+    const markerSize = 25;
     const mapContainerRef = useRef(null);
     const mapRef = useRef(null);
     const markerRef = useRef(null);
