@@ -28,6 +28,30 @@ export default function Search() {
         fetchMarkers();
     }, []);
 
+    const markerDataStrategies = {
+        strapi: (marker) => ({
+            priceRate: marker.attributes.price_rates.data
+        }),
+        mock: (marker) => ({
+            priceRate: marker.priceRates
+        }),
+        laravel: (marker) => {
+            //TODO: Implementation for laravel
+        }
+    };
+
+    function refactorMarkerData(marker) {
+        const apiChoice = process.env.NEXT_PUBLIC_API_CHOICE;
+        const strategy = markerDataStrategies[apiChoice];
+
+        if (!strategy) {
+            console.error(`No strategy defined for API choice: ${apiChoice}`);
+            return null;
+        }
+
+        return strategy(marker);
+    }
+
     const onMarkerClick = (marker) => {
         setSelectedMarker(marker);
         setShowInformation(true);
@@ -43,7 +67,7 @@ export default function Search() {
                     markers={markers}
                 />
                 <div className={styles["flex-container"]}>
-                    {showInformation && <PriceList className={styles["price-list"]} priceRate={selectedMarker.priceRates} />}
+                    {showInformation && <PriceList className={styles["price-list"]} priceRate={refactorMarkerData(selectedMarker).priceRate}/> }
                     {showInformation && 
                         <NavigationCard className={styles["general-information-card"]} title={"General information"}> 
                             <ul>

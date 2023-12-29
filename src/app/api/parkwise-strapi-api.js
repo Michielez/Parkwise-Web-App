@@ -29,7 +29,7 @@ class ParkWiseStrapiAPI {
         return await this.GET('api/parkings', {
             "populate[location][fields][0]": "lng",
             "populate[location][fields][1]": "lat",
-            "populate[price_rates][fields][0]": "duration",
+            "populate[price_rates][fields][0]": "minutes",
             "populate[price_rates][fields][1]": "price",
             "populate[currency][fields][0]": "name",
             "populate[currency][fields][1]": "symbol"

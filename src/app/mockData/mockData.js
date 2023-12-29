@@ -13,23 +13,23 @@ const strapi = {
     },
     priceRates: [
         {
-            "duration": 60,
+            "minutes": 60,
             "price": 0.00
         },
         {
-            "duration": 120,
+            "minutes": 120,
             "price": 3.80
         },
         {
-            "duration": 180,
+            "minutes": 180,
             "price": 5.80
         },
         {
-            "duration": 240,
+            "minutes": 240,
             "price": 7.90
         },
         {
-            "duration": 300,
+            "minutes": 300,
             "price": 10.00
         }
     ]
@@ -40,13 +40,28 @@ const parkings = [
         id: 1,
         type: "parking",
         currency: "€",
-        priceRates: {
-            60: 0.00,
-            120: 3.80,
-            180: 5.80,
-            240: 7.90,
-            300: 10.00,
-        },
+        priceRates: [
+            {
+                "minutes": 60,
+                "price": 0.00
+            },
+            {
+                "minutes": 120,
+                "price": 3.80
+            },
+            {
+                "minutes": 180,
+                "price": 5.80
+            },
+            {
+                "minutes": 240,
+                "price": 7.90
+            },
+            {
+                "minutes": 300,
+                "price": 10.00
+            }
+        ],
         location: {
             lng: 3.21878,
             lat: 50.93014,
@@ -57,13 +72,28 @@ const parkings = [
         id: 2,
         type: "parking",
         currency: "€",
-        priceRates: {
-            60: 1.00,
-            120: 4.00,
-            180: 6.00,
-            240: 8.00,
-            300: 10.00,
-        },
+        priceRates: [
+            {
+                "minutes": 60,
+                "price": 0.00
+            },
+            {
+                "minutes": 120,
+                "price": 3.80
+            },
+            {
+                "minutes": 180,
+                "price": 5.80
+            },
+            {
+                "minutes": 240,
+                "price": 7.90
+            },
+            {
+                "minutes": 300,
+                "price": 10.00
+            }
+        ],
         location: {
             lng: 3.23000,
             lat: 50.92700,
@@ -74,13 +104,28 @@ const parkings = [
         id: 3,
         type: "parking",
         currency: "€",
-        priceRates: {
-            60: 1.50,
-            120: 3.50,
-            180: 5.50,
-            240: 7.50,
-            300: 9.50,
-        },
+        priceRates: [
+            {
+                "minutes": 60,
+                "price": 0.00
+            },
+            {
+                "minutes": 120,
+                "price": 3.80
+            },
+            {
+                "minutes": 180,
+                "price": 5.80
+            },
+            {
+                "minutes": 240,
+                "price": 7.90
+            },
+            {
+                "minutes": 300,
+                "price": 10.00
+            }
+        ],
         location: {
             lng: 3.21000,
             lat: 50.92500,
@@ -91,13 +136,28 @@ const parkings = [
         id: 4,
         type: "parking",
         currency: "€",
-        priceRates: {
-            60: 2.00,
-            120: 4.50,
-            180: 6.50,
-            240: 8.50,
-            300: 10.50,
-        },
+        priceRates: [
+            {
+                "minutes": 60,
+                "price": 0.00
+            },
+            {
+                "minutes": 120,
+                "price": 3.80
+            },
+            {
+                "minutes": 180,
+                "price": 5.80
+            },
+            {
+                "minutes": 240,
+                "price": 7.90
+            },
+            {
+                "minutes": 300,
+                "price": 10.00
+            }
+        ],
         location: {
             lng: 3.22900,
             lat: 50.92100,
@@ -108,13 +168,28 @@ const parkings = [
         id: 5,
         type: "parking",
         currency: "€",
-        priceRates: {
-            60: 0.50,
-            120: 2.50,
-            180: 4.50,
-            240: 6.50,
-            300: 8.50,
-        },
+        priceRates: [
+            {
+                "minutes": 60,
+                "price": 0.00
+            },
+            {
+                "minutes": 120,
+                "price": 3.80
+            },
+            {
+                "minutes": 180,
+                "price": 5.80
+            },
+            {
+                "minutes": 240,
+                "price": 7.90
+            },
+            {
+                "minutes": 300,
+                "price": 10.00
+            }
+        ],
         location: {
             lng: 3.22200,
             lat: 50.92000,
@@ -144,13 +219,28 @@ const account = {
                 lng: 3.21878,
                 lat: 50.93014,
             },
-            priceRates: {
-                60: 0.00,
-                120: 3.80,
-                180: 5.80,
-                240: 7.90,
-                300: 10.00,
-            }
+            priceRates: [
+                {
+                    "minutes": 60,
+                    "price": 0.00
+                },
+                {
+                    "minutes": 120,
+                    "price": 3.80
+                },
+                {
+                    "minutes": 180,
+                    "price": 5.80
+                },
+                {
+                    "minutes": 240,
+                    "price": 7.90
+                },
+                {
+                    "minutes": 300,
+                    "price": 10.00
+                }
+            ],
 
         },
         duration: {
@@ -173,13 +263,28 @@ const account = {
                     lng: 3.21878,
                     lat: 50.93014,
                 },
-                pricRate: {
-                    60: 0.00,
-                    120: 3.80,
-                    180: 5.80,
-                    240: 7.90,
-                    300: 10.00,
-                }
+                priceRates: [
+                    {
+                        "minutes": 60,
+                        "price": 0.00
+                    },
+                    {
+                        "minutes": 120,
+                        "price": 3.80
+                    },
+                    {
+                        "minutes": 180,
+                        "price": 5.80
+                    },
+                    {
+                        "minutes": 240,
+                        "price": 7.90
+                    },
+                    {
+                        "minutes": 300,
+                        "price": 10.00
+                    }
+                ],
 
             },
             payment: {
@@ -200,13 +305,28 @@ const account = {
                 id: 1,
                 type: "parking",
                 currency: "€",
-                priceRates: {
-                    60: 0.00,
-                    120: 3.80,
-                    180: 5.80,
-                    240: 7.90,
-                    300: 10.00,
-                },
+                priceRates: [
+                    {
+                        "minutes": 60,
+                        "price": 0.00
+                    },
+                    {
+                        "minutes": 120,
+                        "price": 3.80
+                    },
+                    {
+                        "minutes": 180,
+                        "price": 5.80
+                    },
+                    {
+                        "minutes": 240,
+                        "price": 7.90
+                    },
+                    {
+                        "minutes": 300,
+                        "price": 10.00
+                    }
+                ],
                 location: {
                     lng: 3.21878,
                     lat: 50.93014,
@@ -234,14 +354,14 @@ const account = {
                 prices: {
                     currency: "€",
                     price: [
-                        { minutes: 60, price: 0.00 },
-                        { minutes: 120, price: 3.80 },
-                        { minutes: 180, price: 5.80 },
-                        { minutes: 240, price: 7.90 },
-                        { minutes: 300, price: 10.00 },
-                        { minutes: 330, price: 10.00 },
-                        { minutes: 360, price: 10.00 },
-                        { minutes: 390, price: 10.00 }
+                        { "minutes": 60, "price": 0.00 },
+                        { "minutes": 120, "price": 3.80 },
+                        { "minutes": 180, "price": 5.80 },
+                        { "minutes": 240, "price": 7.90 },
+                        { "minutes": 300, "price": 10.00 },
+                        { "minutes": 330, "price": 10.00 },
+                        { "minutes": 360, "price": 10.00 },
+                        { "minutes": 390, "price": 10.00 }
                     ],
                 },
             },
@@ -266,14 +386,14 @@ const account = {
                 prices: {
                     currency: "€",
                     price: [
-                        { minutes: 60, price: 0.00 },
-                        { minutes: 120, price: 3.80 },
-                        { minutes: 180, price: 5.80 },
-                        { minutes: 240, price: 7.90 },
-                        { minutes: 300, price: 10.00 },
-                        { minutes: 330, price: 10.00 },
-                        { minutes: 360, price: 10.00 },
-                        { minutes: 390, price: 10.00 }
+                        {"minutes":60, "price": 0.00 },
+                        { "minutes": 120, "price": 3.80 },
+                        { "minutes": 180, "price": 5.80 },
+                        { "minutes": 240, "price": 7.90 },
+                        { "minutes": 300, "price": 10.00 },
+                        { "minutes": 330, "price": 10.00 },
+                        { "minutes": 360, "price": 10.00 },
+                        { "minutes": 390, "price": 10.00 }
                     ],
                 },
             },
@@ -298,14 +418,14 @@ const account = {
                 prices: {
                     currency: "€",
                     price: [
-                        { minutes: 60, price: 0.00 },
-                        { minutes: 120, price: 3.80 },
-                        { minutes: 180, price: 5.80 },
-                        { minutes: 240, price: 7.90 },
-                        { minutes: 300, price: 10.00 },
-                        { minutes: 330, price: 10.00 },
-                        { minutes: 360, price: 10.00 },
-                        { minutes: 390, price: 10.00 }
+                        {"minutes":60, "price": 0.00 },
+                        { "minutes": 120, "price": 3.80 },
+                        { "minutes": 180, "price": 5.80 },
+                        { "minutes": 240, "price": 7.90 },
+                        { "minutes": 300, "price": 10.00 },
+                        { "minutes": 330, "price": 10.00 },
+                        { "minutes": 360, "price": 10.00 },
+                        { "minutes": 390, "price": 10.00 }
                     ],
                 },
             },
