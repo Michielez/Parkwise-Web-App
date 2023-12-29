@@ -211,6 +211,10 @@ const account = {
     currentSession: {
         id: 1,
         car: "1-ABC-123",
+        duration: {
+            start: "2021-05-05T14:00:00.000Z",
+            end: "2021-05-05T15:00:00.000Z"
+        },
         parking: {
             id: 1,
             name: "Parking Spar",
@@ -241,11 +245,6 @@ const account = {
                     "price": 10.00
                 }
             ],
-
-        },
-        duration: {
-            start: "2021-05-05T14:00:00.000Z",
-            end: "2021-05-05T15:00:00.000Z"
         }
     },
     recentTransactions: [

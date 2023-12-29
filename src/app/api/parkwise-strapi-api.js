@@ -25,6 +25,27 @@ class ParkWiseStrapiAPI {
         }
     }
 
+    async POST(path ,body = {}) {
+        const url = new URL(`${this.baseURL}${path}`);
+        try {
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(body)
+            });
+            const data = await response.json();
+            if (!response.ok) {
+                throw new Error(data.error.message);
+            }
+            return data;
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+    }
+
     async parkings() {
         return await this.GET('api/parkings', {
             "populate[location][fields][0]": "lng",
@@ -33,6 +54,29 @@ class ParkWiseStrapiAPI {
             "populate[price_rates][fields][1]": "price",
             "populate[currency][fields][0]": "name",
             "populate[currency][fields][1]": "symbol"
+        });
+    }
+
+    async login(username, password) {
+        return await this.POST('api/auth/local', {
+            identifier: username,
+            password
+        });
+    }
+
+    async register(firstname, lastname, username, email, password, tel, address, city, zip, country, language){
+        return await this.POST('api/auth/local/register', {
+            firstname,
+            lastname,
+            username,
+            email,
+            password,
+            tel,
+            address,
+            city,
+            zip,
+            country,
+            language
         });
     }
 }

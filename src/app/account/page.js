@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 
 import BottomNavigation from "../components/BottomNavigation/BottomNavigation"
@@ -19,17 +19,39 @@ export default function Account() {
     const handleCancelClick = () => {
         setShowRegisterForm(false);
     }
+    function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) {
+            return parts.pop().split(';').shift();
+        }
+        return null;
+    }
+
+    useEffect(() => {
+        setLoggedIn(getCookie('authToken')!== null);
+    })
 
     return (
         <>
-        <main>
-            <h1>Account</h1>
-            
-            {!showRegisterForm && !loggedIn && <LoginForm handleRegisterClick={handleRegisterClick} />}
-            {showRegisterForm && !loggedIn && <RegisterForm handleCancel={handleCancelClick} />}
-            {loggedIn && <p></p>}
-        </main>
-        <BottomNavigation />
+            <main>
+                <h1>Account</h1>
+                {
+                    !showRegisterForm &&
+                    !loggedIn &&
+                    <LoginForm handleRegisterClick={handleRegisterClick} handleLoginClick={() => setLoggedIn(true)} />
+                }
+                {
+                    showRegisterForm &&
+                    !loggedIn &&
+                    <RegisterForm handleCancel={handleCancelClick} />
+                }
+                {
+                    loggedIn &&
+                    <p>You're logged in</p>
+                }
+            </main>
+            <BottomNavigation />
         </>
     )
 }
