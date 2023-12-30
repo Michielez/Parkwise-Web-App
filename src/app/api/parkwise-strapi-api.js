@@ -53,7 +53,10 @@ class ParkWiseStrapiAPI {
             "populate[price_rates][fields][0]": "minutes",
             "populate[price_rates][fields][1]": "price",
             "populate[currency][fields][0]": "name",
-            "populate[currency][fields][1]": "symbol"
+            "populate[currency][fields][1]": "symbol",
+            "populate[capacity][fields][0]": "total",
+            "populate[capacity][fields][1]": "available",
+            "populate[capacity][fields][2]": "taken",
         });
     }
 

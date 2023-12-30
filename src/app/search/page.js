@@ -53,6 +53,7 @@ export default function Search() {
     }
 
     const onMarkerClick = (marker) => {
+        console.log("Marker clicked: ", marker);
         setSelectedMarker(marker);
         setShowInformation(true);
     };
@@ -67,13 +68,15 @@ export default function Search() {
                     markers={markers}
                 />
                 <div className={styles["flex-container"]}>
-                    {showInformation && <PriceList className={styles["price-list"]} priceRate={refactorMarkerData(selectedMarker).priceRate}/> }
+                    {showInformation && 
+                        <PriceList className={styles["price-list"]} priceRate={refactorMarkerData(selectedMarker).priceRate}/> 
+                    }
                     {showInformation && 
                         <NavigationCard className={styles["general-information-card"]} title={"General information"}> 
                             <ul>
                                 <li>Address: <p>{selectedMarker.address}</p></li>
-                                <li>Parking spots: <p>{selectedMarker.totalSpots}</p></li>
-                                <li>Available spots: <p>{selectedMarker.availableSpots}</p></li>
+                                <li>Parking spots: <p>{selectedMarker.attributes.capacity.data.attributes.total}</p></li>
+                                <li>Available spots: <p>{selectedMarker.attributes.capacity.data.attributes.available}</p></li>
                             </ul>
                         </NavigationCard>
                     }
