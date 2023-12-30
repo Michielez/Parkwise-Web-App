@@ -8,6 +8,7 @@ import TimeIcon from "public/icons/black/time.svg"
 import ParkingIcon from "public/icons/black/person.svg"
 
 export default function SessionCard({ session }) {
+    console.table(session)
     const calculateMinutes = (start, end) => {
         const startDate = new Date(start);
         const endDate = new Date(end);
@@ -17,26 +18,19 @@ export default function SessionCard({ session }) {
     }
 
     const calculateParkingPrice = (durationInMinutes, priceRate) => {
-        // Convert the priceRate object to an array of [minutes, price] pairs
-        let priceEntries = Object.entries(priceRate).map(([minutes, price]) => ({
-            minutes: parseInt(minutes),
-            price
-        }));
-    
         // Sort the price entries in ascending order of minutes
-        priceEntries.sort((a, b) => a.minutes - b.minutes);
+        priceRate.sort((a, b) => a.minutes - b.minutes);
     
         // Default to the highest price if the duration exceeds all tiers
-        let calculatedPrice = priceEntries[priceEntries.length - 1].price;
+        let calculatedPrice = priceRate[priceRate.length - 1].price;
     
         // Iterate over the price entries to find the right tier
-        for (let entry of priceEntries) {
+        for (let entry of priceRate) {
             if (durationInMinutes <= entry.minutes) {
                 calculatedPrice = entry.price;
                 break; // Stop the loop once the correct tier is found
             }
         }
-    
         return calculatedPrice;
     };
     

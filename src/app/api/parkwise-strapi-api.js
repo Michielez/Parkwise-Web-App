@@ -1,18 +1,24 @@
 class ParkWiseStrapiAPI {
-    constructor(baseURL = 'https://clownfish-app-uvizv.ondigitalocean.app/') {
+    constructor(authToken, baseURL = 'https://clownfish-app-uvizv.ondigitalocean.app/' ) {
         this.baseURL = baseURL;
+        this.authToken = authToken;
     }
-
+    
     async GET(path, params = {}) {
         const url = new URL(`${this.baseURL}${path}`);
         Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
 
         try {
+            let headers = {
+                'Content-Type': 'application/json'
+            }
+            if (this.authToken){
+                headers.Authorization = `Bearer ${this.authToken}`;
+            }
+
             const response = await fetch(url, {
                 method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
+                headers: headers
             });
             const data = await response.json();
             if (!response.ok) {
@@ -28,11 +34,16 @@ class ParkWiseStrapiAPI {
     async POST(path ,body = {}) {
         const url = new URL(`${this.baseURL}${path}`);
         try {
+            let headers = {
+                'Content-Type': 'application/json'
+            }
+            if (this.authToken){
+                headers.Authorization = `Bearer ${this.authToken}`;
+            }
+            
             const response = await fetch(url, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
+                headers: headers,
                 body: JSON.stringify(body)
             });
             const data = await response.json();
@@ -46,7 +57,7 @@ class ParkWiseStrapiAPI {
         }
     }
 
-    async parkings() {
+    async getParkings() {
         return await this.GET('api/parkings', {
             "populate[location][fields][0]": "lng",
             "populate[location][fields][1]": "lat",
@@ -57,6 +68,12 @@ class ParkWiseStrapiAPI {
             "populate[capacity][fields][0]": "total",
             "populate[capacity][fields][1]": "available",
             "populate[capacity][fields][2]": "taken",
+        });
+    }
+
+    async getCurrentSession() {
+        return await this.GET('api/current-sessions/me',{
+
         });
     }
 

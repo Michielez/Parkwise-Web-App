@@ -7,53 +7,57 @@ import BottomNavigation from "../components/BottomNavigation/BottomNavigation";
 import MockData from "@/app/mockData/mockData";
 import ParkWiseStrapiAPI from "../api/parkwise-strapi-api";
 import styles from "./search.module.css";
+import useAuth from "../hooks/useAuth";
+import { refactorData, currentSessionStrategy, parkingsStrategy, priceRateStrategy} from "@/app/api/apiStrategies";
 
 export default function Search() {
     const [markers, setMarkers] = useState([]);
     const [selectedMarker, setSelectedMarker] = useState(null);
     const [showInformation, setShowInformation] = useState(false);
+    const [currentSession, setCurrentSession] = useState(null);
 
-    const ParkwiseAPI = new ParkWiseStrapiAPI();
+    const { getCookie } = useAuth();
+    const authToken = getCookie('authToken');
+
+    const ParkwiseAPI = new ParkWiseStrapiAPI(authToken);
 
     useEffect(() => {
         const fetchMarkers = async () => {
             try {
-                const data = await ParkwiseAPI.parkings();
-                setMarkers(data.data); // Assuming 'data' is an array of markers
+                const data = await ParkwiseAPI.getParkings();
+                const parkings = refactorData(data.data, parkingsStrategy);
+                console.log(parkings);
+                setMarkers(parkings); 
             } catch (error) {
                 console.error("Error fetching markers:", error);
             }
         };
+        if (process.env.NEXT_PUBLIC_API_CHOICE === "strapi") {
+            fetchMarkers();
+        } else if (process.env.NEXT_PUBLIC_API_CHOICE === "mock") {
+            setMarkers(MockData.parkings);
+        }
 
-        fetchMarkers();
     }, []);
 
-    const markerDataStrategies = {
-        strapi: (marker) => ({
-            priceRate: marker.attributes.price_rates.data
-        }),
-        mock: (marker) => ({
-            priceRate: marker.priceRates
-        }),
-        laravel: (marker) => {
-            //TODO: Implementation for laravel
+    useEffect(() => {
+        const fetchCurrentSession = async () => {
+            try {
+                const data = await ParkwiseAPI.getCurrentSession();
+                const session = refactorData(data.data[0], currentSessionStrategy);
+                setCurrentSession(session);
+            } catch (error) {
+                console.error("Error fetching current session:", error);
+            }
         }
-    };
-
-    function refactorMarkerData(marker) {
-        const apiChoice = process.env.NEXT_PUBLIC_API_CHOICE;
-        const strategy = markerDataStrategies[apiChoice];
-
-        if (!strategy) {
-            console.error(`No strategy defined for API choice: ${apiChoice}`);
-            return null;
+        if (process.env.NEXT_PUBLIC_API_CHOICE === "strapi") {
+            fetchCurrentSession();
+        } else if (process.env.NEXT_PUBLIC_API_CHOICE === "mock") {
+            setCurrentSession(MockData.account.currentSession);
         }
-
-        return strategy(marker);
-    }
+    }, []);
 
     const onMarkerClick = (marker) => {
-        console.log("Marker clicked: ", marker);
         setSelectedMarker(marker);
         setShowInformation(true);
     };
@@ -63,20 +67,20 @@ export default function Search() {
             <main>
                 <h1>Search</h1>
                 <MapBox
-                    currentSession={MockData.account.currentSession}
+                    currentSession={currentSession}
                     onMarkerClick={onMarkerClick}
                     markers={markers}
                 />
                 <div className={styles["flex-container"]}>
-                    {showInformation && 
-                        <PriceList className={styles["price-list"]} priceRate={refactorMarkerData(selectedMarker).priceRate}/> 
+                    {showInformation &&
+                        <PriceList className={styles["price-list"]} priceRates={selectedMarker.priceRates} />
                     }
-                    {showInformation && 
-                        <NavigationCard className={styles["general-information-card"]} title={"General information"}> 
+                    {showInformation &&
+                        <NavigationCard className={styles["general-information-card"]} title={"General information"}>
                             <ul>
-                                <li>Address: <p>{selectedMarker.address}</p></li>
-                                <li>Parking spots: <p>{selectedMarker.attributes.capacity.data.attributes.total}</p></li>
-                                <li>Available spots: <p>{selectedMarker.attributes.capacity.data.attributes.available}</p></li>
+                                <li>Address: <p>TODO</p></li>
+                                <li>Parking spots: <p>{selectedMarker.capacity.total}</p></li>
+                                <li>Available spots: <p>{selectedMarker.capacity.available}</p></li>
                             </ul>
                         </NavigationCard>
                     }

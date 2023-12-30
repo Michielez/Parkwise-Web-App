@@ -18,40 +18,13 @@ export default function MapBox({
     initialLocation = { lng: 3.224700, lat: 51.209348 },
     locationIcon = "/icons/black/parking.svg",
     markers = mockCustomMarkers.parkings,
-    onMarkerClick = () => { }
+    onMarkerClick = () => { },
+    apiChoice = process.env.NEXT_PUBLIC_API_CHOICE
 }) {
     const markerSize = 25;
     const mapContainerRef = useRef(null);
     const mapRef = useRef(null);
     const markerRef = useRef(null);
-
-    const markerDataStrategies = {
-        strapi: (marker) => ({
-            lng: marker.attributes.location.data.attributes.lng,
-            lat: marker.attributes.location.data.attributes.lat,
-            name: marker.attributes.name
-        }),
-        mock: (marker) => ({
-            lng: marker.location.lng,
-            lat: marker.location.lat,
-            name: marker.name
-        }),
-        laravel: (marker) => {
-            // TODO: Implementation for laravel
-        }
-    };
-
-    function refactorMarkerData(marker) {
-        const apiChoice = process.env.NEXT_PUBLIC_API_CHOICE;
-        const strategy = markerDataStrategies[apiChoice];
-    
-        if (!strategy) {
-            console.error(`No strategy defined for API choice: ${apiChoice}`);
-            return null;
-        }
-    
-        return strategy(marker);
-    }
 
     useEffect(() => {
         mapRef.current = new mapboxgl.Map({
@@ -101,13 +74,11 @@ export default function MapBox({
                 el.style.width = markerSize + 'px';
                 el.style.height = markerSize + 'px';
                 el.style.backgroundSize = 'cover';
-                
-                const { lng, lat, name } = refactorMarkerData(marker);
-                
+                                
                 const newMarker = new mapboxgl.Marker(el)
-                    .setLngLat([lng, lat])
+                    .setLngLat([marker.location.lng, marker.location.lat])
                     .setPopup(new mapboxgl.Popup({ offset: markerSize / 2 })
-                    .setHTML(`<h3 style='color:black'>${name}</h3>`))
+                    .setHTML(`<h3 style='color:black'>${marker.name}</h3>`))
                     .addTo(mapRef.current);
                 newMarker.getElement().addEventListener('click', (e) => {
                     e.preventDefault();
