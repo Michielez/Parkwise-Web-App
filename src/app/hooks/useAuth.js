@@ -6,7 +6,6 @@ export default function useAuth() {
     const updateLoggedIn = () =>{
         const authToken = getCookie('authToken');
         setLoggedIn(authToken !== null);
-        console.log(authToken);
     };
 
     useEffect(() => {
@@ -25,7 +24,7 @@ export default function useAuth() {
         return null;
     };
 
-    return {loggedIn, updateLoggedIn};
+    return {loggedIn, updateLoggedIn, getCookie};
 };
 
 
