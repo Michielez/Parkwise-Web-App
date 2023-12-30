@@ -4,7 +4,7 @@ import FormField from '../FormField/FormField';
 import styles from './loginForm.module.css';
 import ParkwiseApi from '@/app/api/parkwise-strapi-api';
 
-const loginForm = ({ handleRegisterClick, handleLoginClick }) => {
+const loginForm = ({ handleRegisterClick, onSubmit }) => {
     const [formData, setFormData] = useState({
         username: '',
         password: ''
@@ -45,8 +45,8 @@ const loginForm = ({ handleRegisterClick, handleLoginClick }) => {
                 formData.username,
                 formData.password
             )
-            handleLoginClick();
             setCookieWithJwtExpiry(responseData.jwt);
+            onSubmit();
         } catch (error) {
             setErrorMessage(error.message.replace("identifier", "username"));
         }        

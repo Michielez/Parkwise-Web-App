@@ -6,11 +6,11 @@ import { useState, useEffect } from 'react';
 import BottomNavigation from "../components/BottomNavigation/BottomNavigation"
 import LoginForm from "../components/LoginForm/LoginForm"
 import RegisterForm from "../components/RegisterForm/RegisterForm"
-
+import useAuth from "../hooks/useAuth";
 
 export default function Account() {
     const [showRegisterForm, setShowRegisterForm] = useState(false);
-    const [loggedIn, setLoggedIn] = useState(false);
+    const {loggedIn, updateLoggedIn} = useAuth();
 
     const handleRegisterClick = () => {
         setShowRegisterForm(true);
@@ -19,18 +19,6 @@ export default function Account() {
     const handleCancelClick = () => {
         setShowRegisterForm(false);
     }
-    function getCookie(name) {
-        const value = `; ${document.cookie}`;
-        const parts = value.split(`; ${name}=`);
-        if (parts.length === 2) {
-            return parts.pop().split(';').shift();
-        }
-        return null;
-    }
-
-    useEffect(() => {
-        setLoggedIn(getCookie('authToken')!== null);
-    })
 
     return (
         <>
@@ -39,7 +27,7 @@ export default function Account() {
                 {
                     !showRegisterForm &&
                     !loggedIn &&
-                    <LoginForm handleRegisterClick={handleRegisterClick} handleLoginClick={() => setLoggedIn(true)} />
+                    <LoginForm handleRegisterClick={handleRegisterClick} onSubmit={updateLoggedIn} />
                 }
                 {
                     showRegisterForm &&
