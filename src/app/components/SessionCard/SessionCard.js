@@ -8,8 +8,11 @@ import TimeIcon from "public/icons/black/time.svg"
 import ParkingIcon from "public/icons/black/person.svg"
 
 export default function SessionCard({ session }) {
-    console.table(session)
+    console.log(session);
     const calculateMinutes = (start, end) => {
+        if (end === null){
+            end = new Date();
+        }
         const startDate = new Date(start);
         const endDate = new Date(end);
         const diff = Math.abs(endDate - startDate);
@@ -46,7 +49,7 @@ export default function SessionCard({ session }) {
             <li className={styles["card-child"]}><Image src={ParkingIcon} alt="Parking icon"/> {session.parking.name}</li>
             <li className={styles["card-child"]}><Image src={CarIcon} alt="Car icon" /> {session.car}</li>
             <li className={styles["card-child"]}><Image src={TimeIcon} alt="Time icon"/> {refactorMinutes(calculateMinutes(session.duration.start, session.duration.end))}</li>
-            <li className={styles["card-child"]}><Image src={MoneyIcon} alt="Money icon"/> {session.parking.currency}{calculateParkingPrice(calculateMinutes(session.duration.start, session.duration.end), session.parking.priceRates)}</li>
+            <li className={styles["card-child"]}><Image src={MoneyIcon} alt="Money icon"/> {session.parking.currency.symbol}{calculateParkingPrice(calculateMinutes(session.duration.start, session.duration.end), session.parking.priceRates)}</li>
             </ul>
         </Card>
     )

@@ -10,7 +10,7 @@ import useAuth from "../hooks/useAuth";
 
 export default function Account() {
     const [showRegisterForm, setShowRegisterForm] = useState(false);
-    const {loggedIn, updateLoggedIn} = useAuth();
+    const {loggedIn, updateLoggedIn, getCookie} = useAuth();
 
     const handleRegisterClick = () => {
         setShowRegisterForm(true);

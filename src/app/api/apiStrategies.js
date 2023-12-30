@@ -92,17 +92,22 @@ export const priceRatesStrategy = {
     mock(priceRates) {
         return priceRates.map((priceRate) => priceRateStrategy.mock(priceRate));
     },
-    laravel: (priceRates) => {}
+    laravel: (priceRates) => {
+        
+    }
 }
 
 export const currentSessionStrategy = {
     strapi: (currentSession) => {
         return {
             id: currentSession.id,
+            car: currentSession.attributes.car,
             parking: parkingStrategy.strapi(currentSession.attributes.parking.data),
-            startTime: currentSession.attributes.start_time,
-            endTime: currentSession.attributes.end_time,
             price: currentSession.attributes.price,
+            duration: {
+                start: currentSession.attributes.duration.data.attributes.start,
+                end: currentSession.attributes.duration.data.attributes.end,
+            }
         }
     },
     mock: (currentSession) => {
