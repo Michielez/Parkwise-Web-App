@@ -40,12 +40,14 @@ class ParkWiseStrapiAPI {
             if (this.authToken){
                 headers.Authorization = `Bearer ${this.authToken}`;
             }
-            
+            console.log(headers);
+            console.log(JSON.stringify(body));
             const response = await fetch(url, {
                 method: 'POST',
                 headers: headers,
                 body: JSON.stringify(body)
             });
+
             const data = await response.json();
             if (!response.ok) {
                 throw new Error(data.error.message);
@@ -84,20 +86,8 @@ class ParkWiseStrapiAPI {
         });
     }
 
-    async register(firstname, lastname, username, email, password, tel, address, city, zip, country, language){
-        return await this.POST('api/auth/local/register', {
-            firstname,
-            lastname,
-            username,
-            email,
-            password,
-            tel,
-            address,
-            city,
-            zip,
-            country,
-            language
-        });
+    async register(formData){
+        return await this.POST('api/auth/local/register', formData);
     }
 }
 

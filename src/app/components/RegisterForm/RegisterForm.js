@@ -1,29 +1,32 @@
 import React, { useState } from 'react';
 import FormField from '../FormField/FormField';
 import styles from './registerForm.module.css';
-import ParkwiseLaravelAPI from '../../api/parkwise-laravel-api';
+import ParkwiseAPI from '../../api/parkwise-strapi-api';
 
-const RegisterForm = ({ handleCancel }) => {
+const RegisterForm = ({ handleCancel, handleRegister }) => {
+  
   const [formData, setFormData] = useState({
     username: '',
-    first_name: '',
-    last_name: '',
+    firstname: '',
+    lastname: '',
     email: '',
     password: '',
     phone: '',
     address: '',
     city: '',
     zip: '',
-    country_id: ''
+    country_id: '',
+    language: ''
   });
   const [currentStep, setCurrentStep] = useState(0);
 
-  const fields2 = {
+  const fields = {
     user: [
       { label: 'Username', type: 'text', name: 'username' },
-      { label: 'Voornaam', type: 'text', name: 'first_name' },
-      { label: 'Achternaam', type: 'text', name: 'last_name' },
+      { label: 'Voornaam', type: 'text', name: 'firstname' },
+      { label: 'Achternaam', type: 'text', name: 'lastname' },
       { label: 'Wachtwoord', type: 'password', name: 'password' },
+      { label: 'Language', type: 'text', name: 'language' },
     ],
     contactInformation: [
       { label: 'E-mail', type: 'email', name: 'email' },
@@ -37,8 +40,8 @@ const RegisterForm = ({ handleCancel }) => {
     ]
   };
 
-  const sections = Object.keys(fields2);
-  const currentFields = fields2[sections[currentStep]];
+  const sections = Object.keys(fields);
+  const currentFields = fields[sections[currentStep]];
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -56,10 +59,32 @@ const RegisterForm = ({ handleCancel }) => {
     setCurrentStep(currentStep - 1);
   };
 
-  const handleSubmit = (e) => {
+  const formatFormData = (formData) => {
+    const formattedFormData = {};
+    for (const key in formData) {
+      if (formData[key]) {
+        formattedFormData[key] = formData[key];
+      }
+    }
+    
+    return formattedFormData;
+  };
+  function setCookieWithJwtExpiry(jwt) {
+    const payload = jwt.split('.')[1];
+    const decodedPayload = atob(payload); // Base64 decode
+    const payloadObj = JSON.parse(decodedPayload);
+    const expDate = new Date(payloadObj.exp * 1000); // Convert to milliseconds
+
+    // Set the cookie with the same expiry as the JWT
+    document.cookie = `authToken=${jwt}; expires=${expDate.toUTCString()}; Secure; SameSite=None`;
+}
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const parkwiseAPI = new ParkwiseLaravelAPI();
-    parkwiseAPI.authenticate.register(formData);
+    const parkwiseAPI = new ParkwiseAPI();
+    const formattedData = formatFormData(formData);
+    const user = await parkwiseAPI.register(formattedData);
+    setCookieWithJwtExpiry(user.jwt);
+    handleRegister();
   };
 
   return (

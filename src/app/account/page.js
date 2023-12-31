@@ -32,7 +32,7 @@ export default function Account() {
                 {
                     showRegisterForm &&
                     !loggedIn &&
-                    <RegisterForm handleCancel={handleCancelClick} />
+                    <RegisterForm handleCancel={handleCancelClick} handleRegister={updateLoggedIn} />
                 }
                 {
                     loggedIn &&
