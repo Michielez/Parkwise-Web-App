@@ -10,6 +10,52 @@ export function refactorData(data, strategies) {
     return strategy(data);
 }
 
+export const recentTransactionsStrategy = {
+    strapi: (recentTransactions) => {
+        return recentTransactions.map((recentTransaction) => recentTransactionStrategy.strapi(recentTransaction));
+    },
+    mock: (recentTransactions) => {
+        return recentTransactions.map((recentTransaction) => recentTransactionStrategy.mock(recentTransaction));
+    },
+    laravel: (recentTransactions) => {
+
+    }
+};
+
+export const recentTransactionStrategy = {
+    strapi: (recentTransaction) => ({
+        car: recentTransaction.attributes.car,
+        duration: {
+            start: recentTransaction.attributes.duration.data.attributes.start,
+            end: recentTransaction.attributes.duration.data.attributes.end
+        },
+        parking: parkingStrategy.strapi(recentTransaction.attributes.parking.data),
+        payment: paymentStrategy.strapi(recentTransaction.attributes.payment.data)
+    }),
+    mock: (recentTransaction) => ({ recentTransaction }),
+    laravel: (recentTransaction) => ({})
+}
+
+export const paymentStrategy = {
+    strapi: (payment) => ({
+        currency: currencyStrategy.strapi(payment.attributes.currency.data),
+        amount: payment.attributes.amount,
+        method: payment.attributes.method,
+        time: payment.attributes.time,
+    }),
+    mock: (payment) => ({ payment }),
+    laravel: (payment) => { }
+}
+
+export const currencyStrategy = {
+    strapi: (currency) => ({
+        symbol: currency.attributes.symbol,
+        name: currency.attributes.name,
+    }),
+    mock: (currency) => ({ currency }),
+    laravel: (currency) => { }
+};
+
 export const selectedParkingStrategy = {
     strapi: (selectedParking) => ({
         priceRate: selectedParking.attributes.price_rates.data,
@@ -27,29 +73,29 @@ export const parkingsStrategy = {
     mock: (parkings) => {
         return parkings.map((parking) => parkingStrategy.mock(parking));
     },
-    laravel: (parkings) => {}
+    laravel: (parkings) => { }
 }
 
 export const parkingStrategy = {
-    strapi (parking) {
+    strapi(parking) {
         return {
-        priceRates: priceRatesStrategy.strapi(parking.attributes.price_rates.data),
-        name: parking.attributes.name,
-        type: parking.attributes.type,
-        location: {
-            lat: parking.attributes.location.data.attributes.lat,
-            lng: parking.attributes.location.data.attributes.lng,
-        },
-        capacity: {
-            total: parking.attributes.capacity.data.attributes.total,
-            taken: parking.attributes.capacity.data.attributes.taken,
-            available: parking.attributes.capacity.data.attributes.available,
-        },
-        currency: {
-            symbol: parking.attributes.currency.data.attributes.symbol,
-            name: parking.attributes.currency.data.attributes.name,
+            priceRates: priceRatesStrategy.strapi(parking.attributes.price_rates.data),
+            name: parking.attributes.name,
+            type: parking.attributes.type,
+            location: {
+                lat: parking.attributes.location.data.attributes.lat,
+                lng: parking.attributes.location.data.attributes.lng,
+            },
+            capacity: {
+                total: parking.attributes.capacity.data.attributes.total,
+                taken: parking.attributes.capacity.data.attributes.taken,
+                available: parking.attributes.capacity.data.attributes.available,
+            },
+            currency: {
+                symbol: parking.attributes.currency.data.attributes.symbol,
+                name: parking.attributes.currency.data.attributes.name,
+            }
         }
-    }
     },
     mock: (parking) => ({ parking }),
     laravel: (marker) => {
@@ -60,7 +106,7 @@ export const parkingStrategy = {
 export const markersStrategy = {
     strapi: (markers) => markers.map((marker) => selectedMarkerStrategy.strapi(marker)),
     mock: (markers) => markers.map((marker) => selectedMarkerStrategy.mock(marker)),
-    laravel: (markers) => {}
+    laravel: (markers) => { }
 }
 
 export const priceRateStrategy = {
@@ -82,7 +128,7 @@ export const priceRatesStrategy = {
         return priceRates.map((priceRate) => priceRateStrategy.mock(priceRate));
     },
     laravel: (priceRates) => {
-        
+
     }
 }
 
@@ -100,5 +146,5 @@ export const currentSessionStrategy = {
         }
     },
     mock: (currentSession) => ({ currentSession }),
-    laravel: (currentSession) => {}
+    laravel: (currentSession) => { }
 }

@@ -30,13 +30,14 @@ export default function Ticket({ }) {
 
     useEffect(() => {
         const fetchCurrentSession = async () => {
-
             const data = await ParkwiseAPI.getCurrentSession();
             const session = refactorData(data.data[0], currentSessionStrategy);
             setCurrentSession(session);
         }
         if (process.env.NEXT_PUBLIC_API_CHOICE === "strapi") {
-            fetchCurrentSession();
+            if (loggedIn) {
+                fetchCurrentSession();
+            }
         } else if (process.env.NEXT_PUBLIC_API_CHOICE === "mock") {
             setCurrentSession(MockData.account.currentSession);
         }

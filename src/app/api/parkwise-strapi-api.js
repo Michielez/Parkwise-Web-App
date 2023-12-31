@@ -74,9 +74,11 @@ class ParkWiseStrapiAPI {
     }
 
     async getCurrentSession() {
-        return await this.GET('api/current-sessions/me',{
+        return await this.GET('api/current-sessions/me');
+    }
 
-        });
+    async getRecentTransactions() {
+        return await this.GET('api/recent-transactions/me');
     }
 
     async login(username, password) {
@@ -89,6 +91,8 @@ class ParkWiseStrapiAPI {
     async register(formData){
         return await this.POST('api/auth/local/register', formData);
     }
+
+
 }
 
 export default ParkWiseStrapiAPI;
