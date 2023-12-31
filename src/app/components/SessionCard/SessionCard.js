@@ -8,7 +8,6 @@ import TimeIcon from "public/icons/black/time.svg"
 import ParkingIcon from "public/icons/black/person.svg"
 
 export default function SessionCard({ session }) {
-    console.log(session);
     const calculateMinutes = (start, end) => {
         if (end === null){
             end = new Date();

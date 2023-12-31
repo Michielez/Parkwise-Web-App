@@ -16,9 +16,7 @@ export const selectedParkingStrategy = {
         capacity: selectedParking.attributes.capacity.data.attributes,
         name: selectedParking.attributes.name,
     }),
-    mock: (selectedMarker) => { 
-
-    },
+    mock: (selectedMarker) => ({ selectedMarker }),
     laravel: (selectedMarker) => { }
 };
 
@@ -53,13 +51,7 @@ export const parkingStrategy = {
         }
     }
     },
-    mock: (parking) => ({
-        priceRate: parking.priceRates,
-        name: parking.name,
-        type: parking.type,
-        location: parking.location,
-        capacity: parking.capacity
-    }),
+    mock: (parking) => ({ parking }),
     laravel: (marker) => {
         //TODO: Implementation for laravel
     }
@@ -76,10 +68,7 @@ export const priceRateStrategy = {
         minutes: priceRate.attributes.minutes,
         price: priceRate.attributes.price
     }),
-    mock: (priceRate) => ({
-        minutes: priceRate.minutes,
-        price: priceRate.price
-    }),
+    mock: (priceRate) => ({ priceRate }),
     laravel: (priceRate) => {
         //TODO: Implementation for laravel
     }
@@ -110,16 +99,6 @@ export const currentSessionStrategy = {
             }
         }
     },
-    mock: (currentSession) => {
-        return {
-            id: currentSession.id,
-            parking: currentSession.parking,
-            startTime: currentSession.startTime,
-            endTime: currentSession.endTime,
-            price: currentSession.price,
-            currency: currentSession.currency,
-            status: currentSession.status,
-        }
-    },
+    mock: (currentSession) => ({ currentSession }),
     laravel: (currentSession) => {}
 }

@@ -8,14 +8,14 @@ import MockData from "@/app/mockData/mockData";
 import ParkWiseStrapiAPI from "../api/parkwise-strapi-api";
 import styles from "./search.module.css";
 import useAuth from "../hooks/useAuth";
-import { refactorData, currentSessionStrategy, parkingsStrategy, priceRateStrategy} from "@/app/api/apiStrategies";
+import { refactorData, currentSessionStrategy, parkingsStrategy, priceRateStrategy } from "@/app/api/apiStrategies";
 
 export default function Search() {
     const [markers, setMarkers] = useState([]);
     const [selectedMarker, setSelectedMarker] = useState(null);
     const [showInformation, setShowInformation] = useState(false);
     const [currentSession, setCurrentSession] = useState(null);
-
+    const [address, setAddress] = useState(null);
     const { getCookie } = useAuth();
     const authToken = getCookie('authToken');
 
@@ -26,8 +26,7 @@ export default function Search() {
             try {
                 const data = await ParkwiseAPI.getParkings();
                 const parkings = refactorData(data.data, parkingsStrategy);
-                console.log(parkings);
-                setMarkers(parkings); 
+                setMarkers(parkings);
             } catch (error) {
                 console.error("Error fetching markers:", error);
             }
@@ -62,6 +61,33 @@ export default function Search() {
         setShowInformation(true);
     };
 
+    useEffect(() => {
+        const fetchAddress = async () => {
+            const coordinates = selectedMarker.location;
+            const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${coordinates.lng},${coordinates.lat}.json?access_token=${process.env.NEXT_PUBLIC_MAP_BOX_API_KEY}`;
+            const response = await fetch(url, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            try {
+                if (!response.ok) {
+                    throw new Error(response.statusText);
+                }
+                const data = await response.json();
+                setAddress(data.features[0].place_name); // Set the fetched address
+
+            } catch (error) {
+                console.error(error);
+            }
+        };
+        if (selectedMarker !== null) {
+            fetchAddress();
+        }
+    }, [selectedMarker]);
+
+
     return (
         <>
             <main>
@@ -76,9 +102,13 @@ export default function Search() {
                         <PriceList className={styles["price-list"]} priceRates={selectedMarker.priceRates} />
                     }
                     {showInformation &&
-                        <NavigationCard className={styles["general-information-card"]} title={"General information"}>
+                        <NavigationCard
+                            className={styles["general-information-card"]}
+                            title={"General information"}
+                            location={selectedMarker.location}
+                        >
                             <ul>
-                                <li>Address: <p>TODO</p></li>
+                                <li>Address: <p>{address}</p></li>
                                 <li>Parking spots: <p>{selectedMarker.capacity.total}</p></li>
                                 <li>Available spots: <p>{selectedMarker.capacity.available}</p></li>
                             </ul>

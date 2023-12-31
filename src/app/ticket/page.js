@@ -38,7 +38,7 @@ export default function Ticket({ }) {
         if (process.env.NEXT_PUBLIC_API_CHOICE === "strapi") {
             fetchCurrentSession();
         } else if (process.env.NEXT_PUBLIC_API_CHOICE === "mock") {
-            setCurrentSession(MockData.currentSession);
+            setCurrentSession(MockData.account.currentSession);
         }
 
     },[])
@@ -68,7 +68,7 @@ export default function Ticket({ }) {
         if (currentSession) {
             fetchAddress();
         }
-    }, []);
+    }, [currentSession]);
 
     if (currentSession && loggedIn) {
         return (

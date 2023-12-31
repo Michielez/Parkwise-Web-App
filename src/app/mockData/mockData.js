@@ -1,45 +1,13 @@
-const strapi = {
-    id: 1,
-    type: "parking",
-    name: "Spar",
-    location: {
-        lng: 3.21878,
-        lat: 50.93014,
-    },
-    currency: {
-        id: 1,
-        symbol: "€",
-        text: "Euro"
-    },
-    priceRates: [
-        {
-            "minutes": 60,
-            "price": 0.00
-        },
-        {
-            "minutes": 120,
-            "price": 3.80
-        },
-        {
-            "minutes": 180,
-            "price": 5.80
-        },
-        {
-            "minutes": 240,
-            "price": 7.90
-        },
-        {
-            "minutes": 300,
-            "price": 10.00
-        }
-    ]
-
-}
 const parkings = [
     {
         id: 1,
         type: "parking",
         currency: "€",
+        capacity: {
+            total: 250,
+            available: 250,
+            taken: 0
+        },
         priceRates: [
             {
                 "minutes": 60,
@@ -72,6 +40,11 @@ const parkings = [
         id: 2,
         type: "parking",
         currency: "€",
+        capacity: {
+            total: 250,
+            available: 250,
+            taken: 0
+        },
         priceRates: [
             {
                 "minutes": 60,
@@ -104,6 +77,11 @@ const parkings = [
         id: 3,
         type: "parking",
         currency: "€",
+        capacity: {
+            total: 250,
+            available: 250,
+            taken: 0
+        },
         priceRates: [
             {
                 "minutes": 60,
@@ -136,6 +114,11 @@ const parkings = [
         id: 4,
         type: "parking",
         currency: "€",
+        capacity: {
+            total: 250,
+            available: 250,
+            taken: 0
+        },
         priceRates: [
             {
                 "minutes": 60,
@@ -168,6 +151,11 @@ const parkings = [
         id: 5,
         type: "parking",
         currency: "€",
+        capacity: {
+            total: 250,
+            available: 250,
+            taken: 0
+        },
         priceRates: [
             {
                 "minutes": 60,
@@ -222,6 +210,11 @@ const account = {
             location: {
                 lng: 3.21878,
                 lat: 50.93014,
+            },
+            capacity: {
+                total: 250,
+                available: 250,
+                taken: 0
             },
             priceRates: [
                 {
