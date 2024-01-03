@@ -1,5 +1,5 @@
 class ParkWiseStrapiAPI {
-    constructor(authToken, baseURL = 'https://clownfish-app-uvizv.ondigitalocean.app/' ) {
+    constructor(authToken, baseURL = process.env.NEXT_PUBLIC_REMOTE_STRAPI_URL ) {
         this.baseURL = baseURL;
         this.authToken = authToken;
     }
@@ -40,8 +40,6 @@ class ParkWiseStrapiAPI {
             if (this.authToken){
                 headers.Authorization = `Bearer ${this.authToken}`;
             }
-            console.log(headers);
-            console.log(JSON.stringify(body));
             const response = await fetch(url, {
                 method: 'POST',
                 headers: headers,
@@ -90,6 +88,9 @@ class ParkWiseStrapiAPI {
 
     async register(formData){
         return await this.POST('api/auth/local/register', formData);
+    }
+    async getUserInfo(){
+        return await this.GET('api/users/me');
     }
 
 

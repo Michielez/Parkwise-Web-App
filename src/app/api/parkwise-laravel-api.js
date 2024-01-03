@@ -24,11 +24,11 @@ class ParkWiseLaravelAPI {
             }
         }
         this.authenticate = {
-            register: async (username, password, first_name, email, phone, address, city, zip, country_id) => {
+            register: async (formDate) => {
                 const response = await fetch(`${baseURL}/auth/register`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ username, password, first_name, email, phone, address, city, zip, country_id })
+                    body: JSON.stringify(formDate)
                 });
             
                 try {
