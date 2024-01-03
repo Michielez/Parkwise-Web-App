@@ -18,8 +18,7 @@ export default function MapBox({
     initialLocation = { lng: 3.224700, lat: 51.209348 },
     locationIcon = "/icons/black/parking.svg",
     markers = mockCustomMarkers.parkings,
-    onMarkerClick = () => { },
-    apiChoice = process.env.NEXT_PUBLIC_API_CHOICE
+    onMarkerClick = () => { }
 }) {
     const markerSize = 25;
     const mapContainerRef = useRef(null);
@@ -52,7 +51,7 @@ export default function MapBox({
             el.style.height = markerSize + 'px';
             el.style.backgroundSize = 'cover';
             el.style.zIndex = 2;
-            new mapboxgl.Marker(el)
+            const newMarker = new mapboxgl.Marker(el)
                 .setLngLat([currentSession.parking.location.lng, currentSession.parking.location.lat])
                 .setPopup(new mapboxgl.Popup({ offset: markerSize / 2 })
                 .setHTML(`
@@ -60,7 +59,10 @@ export default function MapBox({
                     <p style='color:black'>You're parked here</p>
                 `))
                 .addTo(mapRef.current);
-            
+            newMarker.getElement().addEventListener('click', (e) => {
+                e.preventDefault();
+                onMarkerClick(currentSession.parking);
+            })
         }
     }, [currentSession])
 
@@ -112,7 +114,7 @@ export default function MapBox({
                     });
                 }
             }, () => {
-                console.log('Error in the geolocation service.');
+                console.error('Error in the geolocation service.');
             })
         }
     }, [])
