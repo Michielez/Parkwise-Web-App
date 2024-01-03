@@ -20,7 +20,7 @@ const RegisterForm = ({ handleCancel, handleRegister }) => {
     car: '',
   });
   const [currentStep, setCurrentStep] = useState(0);
-
+  const [errorMessages, setErrorMessages] = useState([]);
   const fields = {
     user: [
       { label: 'Username', type: 'text', name: 'username' },
@@ -47,6 +47,11 @@ const RegisterForm = ({ handleCancel, handleRegister }) => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    if (name === 'password' && !checkPassword(value)) {
+      setErrorMessages(['Password must have at least 6 characters!']);
+    } else {
+      setErrorMessages([]);
+    }
     setFormData(prevState => ({
       ...prevState,
       [name]: value,
@@ -73,21 +78,37 @@ const RegisterForm = ({ handleCancel, handleRegister }) => {
   };
   function setCookieWithJwtExpiry(jwt) {
     const payload = jwt.split('.')[1];
-    const decodedPayload = atob(payload); // Base64 decode
+    const decodedPayload = atob(payload); 
     const payloadObj = JSON.parse(decodedPayload);
-    const expDate = new Date(payloadObj.exp * 1000); // Convert to milliseconds
+    const expDate = new Date(payloadObj.exp * 1000); 
 
-    // Set the cookie with the same expiry as the JWT
     document.cookie = `authToken=${jwt}; expires=${expDate.toUTCString()}; SameSite=Lax`;
   }
   const handleSubmit = async (e) => {
     e.preventDefault();
     const parkwiseAPI = new ParkwiseAPI();
     const formattedData = formatFormData(formData);
-    const user = await parkwiseAPI.register(formattedData);
-    setCookieWithJwtExpiry(user.jwt);
-    handleRegister();
+    try {
+      const user = await parkwiseAPI.register(formattedData);
+      setCookieWithJwtExpiry(user.jwt);
+      handleRegister();
+    } catch (error) {
+      setErrorMessages([])
+      const newErrorMessages = error.details.errors.map(err => err.message);
+      setErrorMessages(newErrorMessages);
+      console.log(errorMessages);
+    }
+    
   };
+
+  const checkPassword = () => {
+    const leastCharacters = 5;
+    const password = formData.password;
+    if (password.length < leastCharacters) {
+      return false;
+    }
+    return true;
+  }
 
   return (
     <form onSubmit={handleSubmit} className={styles.form}>
@@ -113,6 +134,11 @@ const RegisterForm = ({ handleCancel, handleRegister }) => {
           <button type="submit" className={styles.saveButton}>Registreer</button>
         )}
       </div>
+      <ul className={styles.errorMessages}>
+          {errorMessages.map((error, index) => (
+            <li key={index}>{error}</li>
+          ))}
+      </ul>
       <p>Al een account? <button type="button" onClick={handleCancel} className={styles.loginButton}>Login</button></p>
     </form>
   );

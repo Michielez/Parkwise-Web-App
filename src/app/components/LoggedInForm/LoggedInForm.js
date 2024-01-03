@@ -10,7 +10,7 @@ export default function LoggedInForm({ initialFormData, onCancelClick }) {
     const parkwiseAPI = new ParkwiseAPI(authToken);
     const [changedFields, setChangedFields] = useState({});
     const [saveSuccesFull, setSaveSuccesFull] = useState("");
-
+    const [errorMessages, setErrorMessages] = useState([]);
     const [formData, setFormData] = useState({
         username: '',
         firstname: '',
@@ -30,11 +30,16 @@ export default function LoggedInForm({ initialFormData, onCancelClick }) {
         async function updateUserInfo() {
             const userId = initialFormData.id;
             e.preventDefault();
-            console.log("changed fields", changedFields);
-            const response = await parkwiseAPI.updateUserInfo(userId, changedFields);
-            if (response) {
+            try {
+                await parkwiseAPI.updateUserInfo(userId, changedFields);
                 setSaveSuccesFull("Succesfully saved");
+                setChangedFields({});
+            } catch (error) {
+                setErrorMessages([])
+                const newErrorMessages = error.details.errors.map(err => err.message.replace("identifier", "username"));
+                setErrorMessages(newErrorMessages);
             }
+            
         }
         if (process.env.NEXT_PUBLIC_API_CHOICE === "strapi") {
             updateUserInfo();
@@ -50,17 +55,12 @@ export default function LoggedInForm({ initialFormData, onCancelClick }) {
             ...prevState,
             [name]: value,
         }));
-        if (initialFormData[name] !== value) {
-            setChangedFields(prevState => ({
-                ...prevState,
-                [name]: value,
-            }));
-        } else {
-            const newChangedFields = { ...changedFields };
-            delete newChangedFields[name];
-            setChangedFields(newChangedFields);
-        }
+        setChangedFields(prevState => ({
+            ...prevState,
+            [name]: value,
+        }));
     };
+    
 
     const refactorInitialFormData = (data) => {
         return Object.keys(data).reduce((acc, key) => {
@@ -77,8 +77,8 @@ export default function LoggedInForm({ initialFormData, onCancelClick }) {
     const fields = {
         User: [
             { label: 'Username', type: 'text', name: 'username', disabled: true },
-            { label: 'Firstname', type: 'text', name: 'firstname' },
-            { label: 'Lastname', type: 'text', name: 'lastname' },
+            { label: 'Firstname', type: 'text', name: 'firstname', disabled: true },
+            { label: 'Lastname', type: 'text', name: 'lastname', disabled: true },
             { label: 'Language', type: 'text', name: 'language' },
             { label: 'License plate', type: 'text', name: 'car' },
         ],
@@ -120,7 +120,11 @@ export default function LoggedInForm({ initialFormData, onCancelClick }) {
                 <button type="submit" className={styles.button}>Save</button>
                 <button type="button" className={styles.button} onClick={onCancelClick}>Cancel</button>
             </div>
-
+            <ul className={styles.errorMessages}>
+                {errorMessages.map((message, index) => (
+                    <li key={index}>{message}</li>
+                ))}
+            </ul>
             <p>{saveSuccesFull}</p>
         </form>
     );

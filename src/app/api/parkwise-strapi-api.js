@@ -48,11 +48,10 @@ class ParkWiseStrapiAPI {
 
             const data = await response.json();
             if (!response.ok) {
-                throw new Error(data.error.message);
+                throw data.error;
             }
             return data;
         } catch (error) {
-            console.error(error);
             throw error;
         }
     }
@@ -73,11 +72,10 @@ class ParkWiseStrapiAPI {
             });
             const data = await response.json();
             if (!response.ok) {
-                throw new Error(data.error.message);
+                throw data.error;
             }
             return data;
         } catch (error) {
-            console.error(error);
             throw error;
         }
     }

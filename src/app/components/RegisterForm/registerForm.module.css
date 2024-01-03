@@ -48,3 +48,9 @@
 .form .loginButton:hover{
     cursor: pointer;
 }
+.errorMessages{
+    margin: 0.5rem 0 1rem 0;
+    color: red;
+    text-align: center;
+    list-style-type: none;
+}

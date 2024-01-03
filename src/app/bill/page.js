@@ -23,12 +23,12 @@ export default function Bill({}) {
             const recentTransactions = refactorData(data.data, recentTransactionsStrategy);
             setRecentTransactions(recentTransactions);
         }
-        if (process.env.NEXT_PUBLIC_API_CHOICE === "strapi") {
+        if (process.env.NEXT_PUBLIC_API_CHOICE === "strapi" && loggedIn) {
             fetchRecentTransactions();
-        } else if (process.env.NEXT_PUBLIC_API_CHOICE === "mock") {
+        } else if (process.env.NEXT_PUBLIC_API_CHOICE === "mock" && loggedIn) {
             setRecentTransactions(mockData.account.recentTransactions);
         }
-    }, []);
+    }, [loggedIn]);
 
     const formatDate = (dateString) => {
         const date = new Date(dateString);
@@ -38,13 +38,13 @@ export default function Bill({}) {
         return `${day}-${month}-${year}`;
     }
     
-
+    const isRecentTransactionsFetched = () => recentTransactions.length > 0;
+    
     return (
         <>
             <main>
                 <h1>Bill</h1>
-
-                <Card title={"Recente transacties"}>
+                {loggedIn && isRecentTransactionsFetched && <Card title={"Recente transacties"}>
                     <ul>
                         {recentTransactions.map((transaction, index) => (
                             <li key={index}>
@@ -54,7 +54,10 @@ export default function Bill({}) {
                             </li>
                         ))}
                     </ul>
-                </Card>
+                </Card>}
+                {!loggedIn && <p>You're currently not logged in!</p>}
+                {loggedIn && !isRecentTransactionsFetched && <p>Loading...</p>}
+                
             </main>
             <BottomNavigation />
         </>

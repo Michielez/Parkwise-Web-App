@@ -10,7 +10,7 @@ const loginForm = ({ handleRegisterClick, onSubmit }) => {
         password: ''
     });
 
-    const [errorMessage, setErrorMessage] = useState("");
+    const [errorMessages, setErrorMessages] = useState([]);
 
     const fields = [
         { label: 'Username', type: 'string', name: 'username' },
@@ -25,18 +25,18 @@ const loginForm = ({ handleRegisterClick, onSubmit }) => {
         }));
     };
 
-    
+
 
     function setCookieWithJwtExpiry(jwt) {
         const payload = jwt.split('.')[1];
         const decodedPayload = atob(payload); // Base64 decode
         const payloadObj = JSON.parse(decodedPayload);
         const expDate = new Date(payloadObj.exp * 1000); // Convert to milliseconds
-    
+
         // Set the cookie with the same expiry as the JWT
         document.cookie = `authToken=${jwt}; expires=${expDate.toUTCString()}; SameSite=Lax`;
     }
-    
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         const ParkWiseAPI = new ParkwiseApi();
@@ -48,8 +48,10 @@ const loginForm = ({ handleRegisterClick, onSubmit }) => {
             setCookieWithJwtExpiry(responseData.jwt);
             onSubmit();
         } catch (error) {
-            setErrorMessage(error.message.replace("identifier", "username"));
-        }        
+            setErrorMessages([])
+            const newErrorMessages = error.details.errors.map(err => err.message.replace("identifier","username"));
+            setErrorMessages(newErrorMessages);
+        }
     };
 
 
@@ -68,7 +70,11 @@ const loginForm = ({ handleRegisterClick, onSubmit }) => {
                 ))}
                 <button type="submit" className={styles.loginButton}>Login</button>
             </form>
-            <p className={styles.errorMessage}>{errorMessage}</p>
+            <ul className={styles.errorMessages}>
+                {errorMessages.map((error, index) => (
+                    <li key={index}>{error}</li>
+                ))}
+            </ul>
             <p className={styles.geenAccount}>No account?
                 <button
                     type="button"
