@@ -20,9 +20,7 @@ export default function Bill({}) {
     useEffect(()=>{
         const fetchRecentTransactions = async () => {
             const data = await parkwiseAPI.getRecentTransactions();
-            console.log(data);
             const recentTransactions = refactorData(data.data, recentTransactionsStrategy);
-            console.log(recentTransactions);
             setRecentTransactions(recentTransactions);
         }
         if (process.env.NEXT_PUBLIC_API_CHOICE === "strapi") {
@@ -31,6 +29,15 @@ export default function Bill({}) {
             setRecentTransactions(mockData.account.recentTransactions);
         }
     }, []);
+
+    const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        const day = date.getDate().toString().padStart(2, '0');
+        const month = (date.getMonth() + 1).toString().padStart(2, '0');
+        const year = date.getFullYear();
+        return `${day}-${month}-${year}`;
+    }
+    
 
     return (
         <>
@@ -41,8 +48,8 @@ export default function Bill({}) {
                     <ul>
                         {recentTransactions.map((transaction, index) => (
                             <li key={index}>
-                                <p>{new Date(transaction.duration.start).toLocaleDateString()}</p>
-                                <p>{transaction.car}</p>
+                                <p>{formatDate(transaction.duration.start)}</p>
+                                <p>{transaction.parking.name}</p>
                                 <p>{transaction.payment.currency.symbol}{transaction.payment.amount.toFixed(2).replace('.', ',')}</p>
                             </li>
                         ))}

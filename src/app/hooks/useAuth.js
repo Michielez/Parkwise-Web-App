@@ -2,10 +2,12 @@ import { useState, useEffect } from 'react';
 
 export default function useAuth() {
     const [loggedIn, setLoggedIn] = useState(false);
+    const [authChecked, setAuthChecked] = useState(false);
 
     const updateLoggedIn = () =>{
         const authToken = getCookie('authToken');
         setLoggedIn(authToken !== null);
+        setAuthChecked(true);
     };
 
     useEffect(() => {
@@ -24,7 +26,7 @@ export default function useAuth() {
         return null;
     };
 
-    return {loggedIn, updateLoggedIn, getCookie};
+    return {loggedIn, updateLoggedIn, getCookie, authChecked};
 };
 
 

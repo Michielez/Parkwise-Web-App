@@ -4,19 +4,20 @@ import styles from './registerForm.module.css';
 import ParkwiseAPI from '../../api/parkwise-strapi-api';
 
 const RegisterForm = ({ handleCancel, handleRegister }) => {
-  
+
   const [formData, setFormData] = useState({
     username: '',
     firstname: '',
     lastname: '',
     email: '',
     password: '',
-    phone: '',
+    tel: '',
     address: '',
     city: '',
     zip: '',
-    country_id: '',
-    language: ''
+    country: '',
+    language: '',
+    car: '',
   });
   const [currentStep, setCurrentStep] = useState(0);
 
@@ -27,16 +28,17 @@ const RegisterForm = ({ handleCancel, handleRegister }) => {
       { label: 'Achternaam', type: 'text', name: 'lastname' },
       { label: 'Wachtwoord', type: 'password', name: 'password' },
       { label: 'Language', type: 'text', name: 'language' },
+      { label: 'License plate', type: 'text', name: 'car' },
     ],
     contactInformation: [
       { label: 'E-mail', type: 'email', name: 'email' },
-      { label: 'Tel', type: 'tel', name: 'phone' },
+      { label: 'Tel', type: 'tel', name: 'tel' },
     ],
     location: [
       { label: 'Address', type: 'text', name: 'address' },
       { label: 'Stad', type: 'text', name: 'city' },
       { label: 'Postcode', type: 'number', name: 'zip' },
-      { label: 'Land', type: 'text', name: 'country_id' }
+      { label: 'Land', type: 'text', name: 'country' }
     ]
   };
 
@@ -66,7 +68,7 @@ const RegisterForm = ({ handleCancel, handleRegister }) => {
         formattedFormData[key] = formData[key];
       }
     }
-    
+
     return formattedFormData;
   };
   function setCookieWithJwtExpiry(jwt) {
@@ -77,7 +79,7 @@ const RegisterForm = ({ handleCancel, handleRegister }) => {
 
     // Set the cookie with the same expiry as the JWT
     document.cookie = `authToken=${jwt}; expires=${expDate.toUTCString()}; Secure; SameSite=None`;
-}
+  }
   const handleSubmit = async (e) => {
     e.preventDefault();
     const parkwiseAPI = new ParkwiseAPI();

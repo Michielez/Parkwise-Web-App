@@ -11,12 +11,12 @@ import styles from "./ticket.module.css"
 import NavigateButton from "../components/NavigateButton/NavigateButton";
 import ParkwiseStrapiAPI from "@/app/api/parkwise-strapi-api"
 
-import { refactorData, currentSessionStrategy } from "@/app/api/apiStrategies";
+import { refactorData, currentSessionStrategy, parkingsStrategy } from "@/app/api/apiStrategies";
 
 
 
 export default function Ticket({ }) {
-
+    const [markers, setMarkers] = useState([]);
     const [currentSession, setCurrentSession] = useState();
     const [address, setAddress] = useState('');
     const { loggedIn, updateLoggedIn, getCookie } = useAuth();
@@ -25,14 +25,16 @@ export default function Ticket({ }) {
     const ParkwiseAPI = new ParkwiseStrapiAPI(authToken);
 
     const onMarkerClick = () => {
-        console.log("marker clicked");
+        
     }
 
     useEffect(() => {
         const fetchCurrentSession = async () => {
             const data = await ParkwiseAPI.getCurrentSession();
-            const session = refactorData(data.data[0], currentSessionStrategy);
-            setCurrentSession(session);
+            if (data.data[0]){
+                const session = refactorData(data.data[0], currentSessionStrategy);
+                setCurrentSession(session);
+            }
         }
         if (process.env.NEXT_PUBLIC_API_CHOICE === "strapi") {
             if (loggedIn) {
@@ -42,7 +44,7 @@ export default function Ticket({ }) {
             setCurrentSession(MockData.account.currentSession);
         }
 
-    },[])
+    },[loggedIn]);
 
     useEffect(() => {
         const fetchAddress = async () => {
@@ -59,7 +61,7 @@ export default function Ticket({ }) {
                     throw new Error(response.statusText);
                 }
                 const data = await response.json();
-                setAddress(data.features[0].place_name); // Set the fetched address
+                setAddress(data.features[0].place_name);
 
             } catch (error) {
                 console.error(error);
@@ -70,7 +72,23 @@ export default function Ticket({ }) {
             fetchAddress();
         }
     }, [currentSession]);
+    useEffect(() => {
+        const fetchMarkers = async () => {
+            try {
+                const data = await ParkwiseAPI.getParkings();
+                const parkings = refactorData(data.data, parkingsStrategy);
+                setMarkers(parkings);
+            } catch (error) {
+                console.error("Error fetching markers:", error);
+            }
+        };
+        if (process.env.NEXT_PUBLIC_API_CHOICE === "strapi") {
+            fetchMarkers();
+        } else if (process.env.NEXT_PUBLIC_API_CHOICE === "mock") {
+            setMarkers(MockData.parkings);
+        }
 
+    }, []);
     if (currentSession && loggedIn) {
         return (
             <>
@@ -93,7 +111,7 @@ export default function Ticket({ }) {
                         useOwnLocation={false}
                         currentSession={currentSession}
                         onMarkerClick={onMarkerClick}
-                        apiChoice="mock"
+                        markers= {markers}
                     />
                 </main>
                 <BottomNavigation />
