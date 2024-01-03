@@ -8,7 +8,7 @@ import MockData from "@/app/mockData/mockData";
 import ParkWiseStrapiAPI from "../api/parkwise-strapi-api";
 import styles from "./search.module.css";
 import useAuth from "../hooks/useAuth";
-import { refactorData, currentSessionStrategy, parkingsStrategy, priceRateStrategy } from "@/app/api/apiStrategies";
+import { refactorData, currentSessionStrategy, parkingsStrategy } from "@/app/api/apiStrategies";
 
 export default function Search() {
     const [markers, setMarkers] = useState([]);
