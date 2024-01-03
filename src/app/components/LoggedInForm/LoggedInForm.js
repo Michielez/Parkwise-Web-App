@@ -1,8 +1,16 @@
 import { useEffect, useState } from "react";
 import FormField from "../FormField/FormField";
 import styles from "./LoggedInForm.module.css"
+import ParkwiseAPI from "../../api/parkwise-strapi-api";
+import useAuth from "../../hooks/useAuth";
 
-export default function LoggedInForm({ initialFormData }) {
+export default function LoggedInForm({ initialFormData, onCancelClick }) {
+    const { getCookie } = useAuth();
+    const authToken = getCookie("authToken");
+    const parkwiseAPI = new ParkwiseAPI(authToken);
+    const [changedFields, setChangedFields] = useState({});
+    const [saveSuccesFull, setSaveSuccesFull] = useState("");
+
     const [formData, setFormData] = useState({
         username: '',
         firstname: '',
@@ -19,6 +27,20 @@ export default function LoggedInForm({ initialFormData }) {
     });
 
     const handleSubmit = async (e) => {
+        async function updateUserInfo() {
+            const userId = initialFormData.id;
+            e.preventDefault();
+            console.log("changed fields", changedFields);
+            const response = await parkwiseAPI.updateUserInfo(userId, changedFields);
+            if (response) {
+                setSaveSuccesFull("Succesfully saved");
+            }
+        }
+        if (process.env.NEXT_PUBLIC_API_CHOICE === "strapi") {
+            updateUserInfo();
+        } else if (process.env.NEXT_PUBLIC_API_CHOICE === "mock") {
+            console.log("Mock update user info");
+        }
 
     }
 
@@ -28,6 +50,16 @@ export default function LoggedInForm({ initialFormData }) {
             ...prevState,
             [name]: value,
         }));
+        if (initialFormData[name] !== value) {
+            setChangedFields(prevState => ({
+                ...prevState,
+                [name]: value,
+            }));
+        } else {
+            const newChangedFields = { ...changedFields };
+            delete newChangedFields[name];
+            setChangedFields(newChangedFields);
+        }
     };
 
     const refactorInitialFormData = (data) => {
@@ -84,7 +116,12 @@ export default function LoggedInForm({ initialFormData }) {
                     </div>
                 );
             })}
-        <button type="submit" className={styles.SaveButton}>Save</button>
+            <div className={styles.buttons}>
+                <button type="submit" className={styles.button}>Save</button>
+                <button type="button" className={styles.button} onClick={onCancelClick}>Cancel</button>
+            </div>
+
+            <p>{saveSuccesFull}</p>
         </form>
     );
 }

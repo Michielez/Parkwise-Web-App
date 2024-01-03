@@ -9,11 +9,13 @@ import RegisterForm from "../components/RegisterForm/RegisterForm"
 import useAuth from "../hooks/useAuth";
 import ParkwiseAPI from "../api/parkwise-strapi-api";
 import LoggedInForm from "../components/LoggedInForm/LoggedInForm";
+import styles from "./account.module.css"
 
 export default function Account() {
     const [showRegisterForm, setShowRegisterForm] = useState(false);
     const [userInfo, setUserInfo] = useState({});
     const { loggedIn, updateLoggedIn, getCookie, authChecked } = useAuth();
+    const [showInfo, setShowInfo] = useState(false);
 
     const authToken = getCookie("authToken");
     const parkwiseAPI = new ParkwiseAPI(authToken);
@@ -29,6 +31,10 @@ export default function Account() {
     const logOut = () => {
         document.cookie = "authToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
         updateLoggedIn()
+    }
+
+    const toggleInfo = () => {
+        setShowInfo(!showInfo);
     }
 
     useEffect(() => {
@@ -67,9 +73,15 @@ export default function Account() {
                 {
                     loggedIn && authChecked && isUserInfoFetched() && (
                         <>
+
                             <p>You're logged in, {userInfo.username}</p>
-                            <button type='button' onClick={logOut}>Log out</button>
-                            <LoggedInForm initialFormData={userInfo} />
+                            <div className={styles.buttons}>
+                                <button type='button' className={styles.button} onClick={logOut}>Log out</button>
+                                <button type='button' className={styles.button} onClick={toggleInfo}>Show user info</button>
+                            </div>
+                            {showInfo && (
+                                <LoggedInForm initialFormData={userInfo} onCancelClick={toggleInfo} />
+                            )}
                         </>
                     )
                 }

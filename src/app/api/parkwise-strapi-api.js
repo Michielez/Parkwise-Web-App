@@ -57,6 +57,31 @@ class ParkWiseStrapiAPI {
         }
     }
 
+    async PUT(path, body = {}) {
+        const url = new URL(`${this.baseURL}${path}`);
+        try {
+            let headers = {
+                'Content-Type': 'application/json'
+            }
+            if (this.authToken){
+                headers.Authorization = `Bearer ${this.authToken}`;
+            }
+            const response = await fetch(url, {
+                method: 'PUT',
+                headers: headers,
+                body: JSON.stringify(body)
+            });
+            const data = await response.json();
+            if (!response.ok) {
+                throw new Error(data.error.message);
+            }
+            return data;
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+    }
+
     async getParkings() {
         return await this.GET('api/parkings', {
             "populate[location][fields][0]": "lng",
@@ -92,7 +117,9 @@ class ParkWiseStrapiAPI {
     async getUserInfo(){
         return await this.GET('api/users/me');
     }
-
+    async updateUserInfo(userId, formData){
+        return await this.PUT(`api/users/${userId}`, formData);
+    }
 
 }
 
