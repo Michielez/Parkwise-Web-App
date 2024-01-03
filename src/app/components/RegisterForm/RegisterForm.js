@@ -78,7 +78,7 @@ const RegisterForm = ({ handleCancel, handleRegister }) => {
     const expDate = new Date(payloadObj.exp * 1000); // Convert to milliseconds
 
     // Set the cookie with the same expiry as the JWT
-    document.cookie = `authToken=${jwt}; expires=${expDate.toUTCString()}; Secure; SameSite=None`;
+    document.cookie = `authToken=${jwt}; expires=${expDate.toUTCString()}; SameSite=Lax`;
   }
   const handleSubmit = async (e) => {
     e.preventDefault();
