@@ -108,9 +108,11 @@ export default function Search() {
                             location={selectedMarker.location}
                         >
                             <ul>
-                                <li>Address: <p>{address}</p></li>
-                                <li>Parking spots: <p>{selectedMarker.capacity.total}</p></li>
-                                <li>Available spots: <p>{selectedMarker.capacity.available}</p></li>
+                                {address && <li>Address: <p>{address}</p></li>}
+                                {selectedMarker.temperature && <li>Temperature: <p>{selectedMarker.temperature}°C</p></li>}
+                         
+                                { selectedMarker.capacity.total && <li>Parking spots: <p>{selectedMarker.capacity.total}</p></li>}
+                                { selectedMarker.capacity.available && <li>Available spots: <p>{selectedMarker.capacity.available}</p></li>}
                             </ul>
                         </NavigationCard>
                     }

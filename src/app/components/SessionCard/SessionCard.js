@@ -2,10 +2,10 @@ import styles from "./sessionCard.module.css"
 import Card from "../Card/Card"
 import Image from "next/image"
 
-import CarIcon from "public/icons/black/car.svg"
-import MoneyIcon from "public/icons/black/money.svg"
-import TimeIcon from "public/icons/black/time.svg"
-import ParkingIcon from "public/icons/black/person.svg"
+import CarIcon from "/public/icons/black/car.svg"
+import MoneyIcon from "/public/icons/black/money.svg"
+import TimeIcon from "/public/icons/black/time.svg"
+import ParkingIcon from "/public/icons/black/person.svg"
 
 export default function SessionCard({ session }) {
     const calculateMinutes = (start, end) => {

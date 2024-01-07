@@ -8,6 +8,7 @@ const parkings = [
             available: 250,
             taken: 0
         },
+        temperature: 22.76,
         priceRates: [
             {
                 "minutes": 60,
@@ -40,6 +41,7 @@ const parkings = [
         id: 2,
         type: "parking",
         currency: "€",
+        temperature: 21.76,
         capacity: {
             total: 250,
             available: 250,
@@ -82,6 +84,7 @@ const parkings = [
             available: 250,
             taken: 0
         },
+        temperature: 20.21,
         priceRates: [
             {
                 "minutes": 60,
@@ -119,6 +122,7 @@ const parkings = [
             available: 250,
             taken: 0
         },
+        temperature: 23.19,
         priceRates: [
             {
                 "minutes": 60,
@@ -151,6 +155,7 @@ const parkings = [
         id: 5,
         type: "parking",
         currency: "€",
+        temperature: 32.59,
         capacity: {
             total: 250,
             available: 250,
@@ -207,6 +212,7 @@ const account = {
             id: 1,
             name: "Parking Spar",
             currency: "€",
+            temperature: 22.76,
             location: {
                 lng: 3.21878,
                 lat: 50.93014,
@@ -427,5 +433,19 @@ const account = {
         }
     ]
 }
-
-export default { parkings, account }
+const temperatureInCelcius = [
+    {
+        "temperature": 21.76,
+        "createdAt": "2024-01-01T12:00:00.000Z"
+    },
+    {
+        "temperature": 21.98,
+        "createdAt": "2024-01-01T12:00:30.000Z"
+    },
+    {
+        "temperature": 22.05,
+        "createdAt": "2024-01-01T12:01:00.000Z"
+    },
+    
+]
+export default { parkings, account };

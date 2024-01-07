@@ -25,7 +25,7 @@ export default function Bill({}) {
         }
         if (process.env.NEXT_PUBLIC_API_CHOICE === "strapi" && loggedIn) {
             fetchRecentTransactions();
-        } else if (process.env.NEXT_PUBLIC_API_CHOICE === "mock" && loggedIn) {
+        } else if (process.env.NEXT_PUBLIC_API_CHOICE === "mock") {
             setRecentTransactions(mockData.account.recentTransactions);
         }
     }, [loggedIn]);
@@ -39,27 +39,49 @@ export default function Bill({}) {
     }
     
     const isRecentTransactionsFetched = () => recentTransactions.length > 0;
+    if (process.env.NEXT_PUBLIC_API_CHOICE === "strapi"){
+        return (
+            <>
+                <main>
+                    <h1>Bill</h1>
+                    {loggedIn && isRecentTransactionsFetched && <Card title={"Recente transacties"}>
+                        <ul>
+                            {recentTransactions.map((transaction, index) => (
+                                <li key={index}>
+                                    <p>{formatDate(transaction.duration.start)}</p>
+                                    <p>{transaction.parking.name}</p>
+                                    <p>{transaction.payment.currency.symbol}{transaction.payment.amount.toFixed(2).replace('.', ',')}</p>
+                                </li>
+                            ))}
+                        </ul>
+                    </Card>}
+                    {!loggedIn && <p>You're currently not logged in!</p>}
+                    {loggedIn && !isRecentTransactionsFetched && <p>Loading...</p>}
+                    
+                </main>
+                <BottomNavigation />
+            </>
+        );
+    } else if (process.env.NEXT_PUBLIC_API_CHOICE === "mock"){
+        return (
+            <>
+                <main>
+                    <h1>Bill</h1>
+                    <Card title={"Recente transacties"}>
+                        <ul>
+                            {recentTransactions.map((transaction, index) => (
+                                <li key={index}>
+                                    <p>{formatDate(transaction.duration.start)}</p>
+                                    <p>{transaction.parking.name}</p>
+                                    <p>{transaction.payment.currency.symbol}{transaction.payment.amount.toFixed(2).replace('.', ',')}</p>
+                                </li>
+                            ))}
+                        </ul>
+                    </Card>
+                </main>
+                <BottomNavigation />
+            </>
+        );
+    }
     
-    return (
-        <>
-            <main>
-                <h1>Bill</h1>
-                {loggedIn && isRecentTransactionsFetched && <Card title={"Recente transacties"}>
-                    <ul>
-                        {recentTransactions.map((transaction, index) => (
-                            <li key={index}>
-                                <p>{formatDate(transaction.duration.start)}</p>
-                                <p>{transaction.parking.name}</p>
-                                <p>{transaction.payment.currency.symbol}{transaction.payment.amount.toFixed(2).replace('.', ',')}</p>
-                            </li>
-                        ))}
-                    </ul>
-                </Card>}
-                {!loggedIn && <p>You're currently not logged in!</p>}
-                {loggedIn && !isRecentTransactionsFetched && <p>Loading...</p>}
-                
-            </main>
-            <BottomNavigation />
-        </>
-    );
 }

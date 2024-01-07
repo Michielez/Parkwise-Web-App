@@ -25,26 +25,24 @@ export default function Ticket({ }) {
     const ParkwiseAPI = new ParkwiseStrapiAPI(authToken);
 
     const onMarkerClick = () => {
-        
+
     }
 
     useEffect(() => {
         const fetchCurrentSession = async () => {
             const data = await ParkwiseAPI.getCurrentSession();
-            if (data.data[0]){
+            if (data.data[0]) {
                 const session = refactorData(data.data[0], currentSessionStrategy);
                 setCurrentSession(session);
             }
         }
-        if (process.env.NEXT_PUBLIC_API_CHOICE === "strapi") {
-            if (loggedIn) {
-                fetchCurrentSession();
-            }
+        if (process.env.NEXT_PUBLIC_API_CHOICE === "strapi" && loggedIn) {
+            fetchCurrentSession();
         } else if (process.env.NEXT_PUBLIC_API_CHOICE === "mock") {
             setCurrentSession(MockData.account.currentSession);
         }
 
-    },[loggedIn]);
+    }, [loggedIn]);
 
     useEffect(() => {
         const fetchAddress = async () => {
@@ -89,7 +87,57 @@ export default function Ticket({ }) {
         }
 
     }, []);
-    if (currentSession && loggedIn) {
+    if (process.env.NEXT_PUBLIC_API_CHOICE === "strapi") {
+        if (currentSession && loggedIn) {
+            return (
+                <>
+                    <main>
+                        <h1>Ticket</h1>
+                        <div className={styles["flex-container"]}>
+                            <SessionCard session={currentSession} />
+                            <PriceList
+                                priceRates={currentSession.parking.priceRates}
+                                currency={currentSession.parking.currency.symbol}
+                                classname={styles["prijzen-card"]}
+                                title="Prices" />
+                        </div>
+                        <div className={styles["flex-container-address"]}>
+                            <p className={styles.p}>{address}</p>
+                            <NavigateButton location={currentSession.parking.location} />
+                        </div>
+                        <MapBox
+                            initialLocation={currentSession.parking.location}
+                            useOwnLocation={false}
+                            currentSession={currentSession}
+                            onMarkerClick={onMarkerClick}
+                            markers={markers}
+                        />
+                    </main>
+                    <BottomNavigation />
+                </>
+            );
+        } else if (!currentSession && loggedIn) {
+            return (
+                <>
+                    <main>
+                        <h1>Ticket</h1>
+                        <p>You're currently not parked!</p>
+                    </main>
+                    <BottomNavigation />
+                </>
+            )
+        } else if (!loggedIn) {
+            return (
+                <>
+                    <main>
+                        <h1>Ticket</h1>
+                        <p>You'll have to login!</p>
+                    </main>
+                    <BottomNavigation />
+                </>
+            )
+        }
+    } else if (process.env.NEXT_PUBLIC_API_CHOICE === "mock") {
         return (
             <>
                 <main>
@@ -111,31 +159,11 @@ export default function Ticket({ }) {
                         useOwnLocation={false}
                         currentSession={currentSession}
                         onMarkerClick={onMarkerClick}
-                        markers= {markers}
+                        markers={markers}
                     />
                 </main>
                 <BottomNavigation />
             </>
         );
-    } else if (!currentSession && loggedIn) {
-        return (
-            <>
-                <main>
-                    <h1>Ticket</h1>
-                    <p>You're currently not parked!</p>
-                </main>
-                <BottomNavigation />
-            </>
-        )
-    } else if (!loggedIn) {
-        return (
-            <>
-                <main>
-                    <h1>Ticket</h1>
-                    <p>You'll have to login!</p>
-                </main>
-                <BottomNavigation />
-            </>
-        )
     }
 }
