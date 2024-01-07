@@ -36,10 +36,14 @@ export default function LoggedInForm({ initialFormData, onCancelClick }) {
                 setChangedFields({});
             } catch (error) {
                 setErrorMessages([])
-                const newErrorMessages = error.details.errors.map(err => err.message.replace("identifier", "username"));
-                setErrorMessages(newErrorMessages);
+                if (error.details.errors) {
+                    const newErrorMessages = error.details.errors.map(err => err.message.replace("identifier", "username"));
+                    setErrorMessages(newErrorMessages);
+                } else {
+                    setErrorMessages([error.message.replace("identifier", "username")]);
+                }
             }
-            
+
         }
         if (process.env.NEXT_PUBLIC_API_CHOICE === "strapi") {
             updateUserInfo();
@@ -60,7 +64,7 @@ export default function LoggedInForm({ initialFormData, onCancelClick }) {
             [name]: value,
         }));
     };
-    
+
 
     const refactorInitialFormData = (data) => {
         return Object.keys(data).reduce((acc, key) => {

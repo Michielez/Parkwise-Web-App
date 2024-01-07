@@ -20,13 +20,29 @@ export default function Ticket({ }) {
     const [currentSession, setCurrentSession] = useState();
     const [address, setAddress] = useState('');
     const { loggedIn, updateLoggedIn, getCookie } = useAuth();
+    const [showPopup, setShowPopup] = useState(false);
 
     const authToken = getCookie("authToken");
     const ParkwiseAPI = new ParkwiseStrapiAPI(authToken);
 
+    const TEMPERATURE_TRESHOLD = process.env.NEXT_PUBLIC_TEMPERATURE_TRESHOLD;
+
     const onMarkerClick = () => {
 
     }
+
+    useEffect(() => {
+        if (currentSession?.parking.temperature > TEMPERATURE_TRESHOLD) {
+            setShowPopup(true);
+        }
+    },[currentSession])
+
+    const Popup = () => (
+        <div className={styles.popup}>
+            <p><span>Warning:</span> High Temperature! ({currentSession.parking.temperature}°C)</p>
+            <button onClick={() => setShowPopup(false)}>Close</button>
+        </div>
+    )
 
     useEffect(() => {
         const fetchCurrentSession = async () => {
@@ -92,6 +108,7 @@ export default function Ticket({ }) {
             return (
                 <>
                     <main>
+                        {showPopup && <Popup />}
                         <h1>Ticket</h1>
                         <div className={styles["flex-container"]}>
                             <SessionCard session={currentSession} />
@@ -131,7 +148,7 @@ export default function Ticket({ }) {
                 <>
                     <main>
                         <h1>Ticket</h1>
-                        <p>You'll have to login!</p>
+                        <p>You're currently not logged in! <a className={styles.loginATag} href="../account">Login</a></p>
                     </main>
                     <BottomNavigation />
                 </>

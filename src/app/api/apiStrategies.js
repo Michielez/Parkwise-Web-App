@@ -82,6 +82,7 @@ export const parkingStrategy = {
             priceRates: priceRatesStrategy.strapi(parking.attributes.price_rates.data),
             name: parking.attributes.name,
             type: parking.attributes.type,
+            temperature: parking.attributes.temperature,
             location: {
                 lat: parking.attributes.location.data.attributes.lat,
                 lng: parking.attributes.location.data.attributes.lng,

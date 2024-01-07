@@ -78,9 +78,9 @@ const RegisterForm = ({ handleCancel, handleRegister }) => {
   };
   function setCookieWithJwtExpiry(jwt) {
     const payload = jwt.split('.')[1];
-    const decodedPayload = atob(payload); 
+    const decodedPayload = atob(payload);
     const payloadObj = JSON.parse(decodedPayload);
-    const expDate = new Date(payloadObj.exp * 1000); 
+    const expDate = new Date(payloadObj.exp * 1000);
 
     document.cookie = `authToken=${jwt}; expires=${expDate.toUTCString()}; SameSite=Lax`;
   }
@@ -94,11 +94,14 @@ const RegisterForm = ({ handleCancel, handleRegister }) => {
       handleRegister();
     } catch (error) {
       setErrorMessages([])
-      const newErrorMessages = error.details.errors.map(err => err.message);
-      setErrorMessages(newErrorMessages);
-      console.log(errorMessages);
+      if (error.details.errors) {
+        const newErrorMessages = error.details.errors.map(err => err.message.replace("identifier", "username"));
+        setErrorMessages(newErrorMessages);
+      } else {
+        setErrorMessages([error.message.replace("identifier", "username")]);
+      }
     }
-    
+
   };
 
   const checkPassword = () => {
@@ -135,9 +138,9 @@ const RegisterForm = ({ handleCancel, handleRegister }) => {
         )}
       </div>
       <ul className={styles.errorMessages}>
-          {errorMessages.map((error, index) => (
-            <li key={index}>{error}</li>
-          ))}
+        {errorMessages.map((error, index) => (
+          <li key={index}>{error}</li>
+        ))}
       </ul>
       <p>Al een account? <button type="button" onClick={handleCancel} className={styles.loginButton}>Login</button></p>
     </form>

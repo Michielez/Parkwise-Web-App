@@ -1,7 +1,7 @@
 "use client";
 import BottomNavigation from "../components/BottomNavigation/BottomNavigation"
 import Card from "../components/Card/Card"
-
+import styles from "./bill.module.css";
 import {useEffect, useState} from "react";
 import mockData from "@/app/mockData/mockData";
 import { refactorData, recentTransactionsStrategy } from "@/app/api/apiStrategies";
@@ -55,7 +55,7 @@ export default function Bill({}) {
                             ))}
                         </ul>
                     </Card>}
-                    {!loggedIn && <p>You're currently not logged in!</p>}
+                    {!loggedIn && <p>You're currently not logged in! <a className={styles.loginATag} href="../account">Login</a></p>}
                     {loggedIn && !isRecentTransactionsFetched && <p>Loading...</p>}
                     
                 </main>
