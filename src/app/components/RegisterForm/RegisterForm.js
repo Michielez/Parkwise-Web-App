@@ -24,9 +24,9 @@ const RegisterForm = ({ handleCancel, handleRegister }) => {
   const fields = {
     user: [
       { label: 'Username', type: 'text', name: 'username' },
-      { label: 'Voornaam', type: 'text', name: 'firstname' },
-      { label: 'Achternaam', type: 'text', name: 'lastname' },
-      { label: 'Wachtwoord', type: 'password', name: 'password' },
+      { label: 'Firstname', type: 'text', name: 'firstname' },
+      { label: 'Lastname', type: 'text', name: 'lastname' },
+      { label: 'Password', type: 'password', name: 'password' },
       { label: 'Language', type: 'text', name: 'language' },
       { label: 'License plate', type: 'text', name: 'car' },
     ],
@@ -36,9 +36,9 @@ const RegisterForm = ({ handleCancel, handleRegister }) => {
     ],
     location: [
       { label: 'Address', type: 'text', name: 'address' },
-      { label: 'Stad', type: 'text', name: 'city' },
-      { label: 'Postcode', type: 'number', name: 'zip' },
-      { label: 'Land', type: 'text', name: 'country' }
+      { label: 'City', type: 'text', name: 'city' },
+      { label: 'Zip', type: 'number', name: 'zip' },
+      { label: 'Country', type: 'text', name: 'country' }
     ]
   };
 

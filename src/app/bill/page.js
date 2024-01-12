@@ -44,8 +44,9 @@ export default function Bill({}) {
             <>
                 <main>
                     <h1>Bill</h1>
-                    {loggedIn && isRecentTransactionsFetched && <Card title={"Recente transacties"}>
+                    {loggedIn && isRecentTransactionsFetched() && <Card title={"Recente transacties"}>
                         <ul>
+                            {console.log(isRecentTransactionsFetched())}
                             {recentTransactions.map((transaction, index) => (
                                 <li key={index}>
                                     <p>{formatDate(transaction.duration.start)}</p>
@@ -56,7 +57,8 @@ export default function Bill({}) {
                         </ul>
                     </Card>}
                     {!loggedIn && <p>You're currently not logged in! <a className={styles.loginATag} href="../account">Login</a></p>}
-                    {loggedIn && !isRecentTransactionsFetched && <p>Loading...</p>}
+                    {loggedIn && !isRecentTransactionsFetched() && <p>You currently don't have any recent transactions!</p>}
+                    {}
                     
                 </main>
                 <BottomNavigation />

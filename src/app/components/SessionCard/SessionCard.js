@@ -21,17 +21,14 @@ export default function SessionCard({ session }) {
     }
 
     const calculateParkingPrice = (durationInMinutes, priceRate) => {
-        // Sort the price entries in ascending order of minutes
         priceRate.sort((a, b) => a.minutes - b.minutes);
 
-        // Default to the highest price if the duration exceeds all tiers
         let calculatedPrice = priceRate[priceRate.length - 1].price;
 
-        // Iterate over the price entries to find the right tier
         for (let entry of priceRate) {
             if (durationInMinutes <= entry.minutes) {
                 calculatedPrice = entry.price;
-                break; // Stop the loop once the correct tier is found
+                break; 
             }
         }
         return calculatedPrice;
