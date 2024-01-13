@@ -6,13 +6,10 @@ import SessionCard from "../components/SessionCard/SessionCard"
 import MockData from "@/app/mockData/mockData"
 import { useEffect, useState } from 'react';
 import useAuth from "../hooks/useAuth";
-
 import styles from "./ticket.module.css"
 import NavigateButton from "../components/NavigateButton/NavigateButton";
 import ParkwiseAPI from "@/app/api/parkwise-strapi-api"
-
 import { refactorData, currentSessionStrategy, parkingsStrategy } from "@/app/api/apiStrategies";
-
 
 
 export default function Ticket({ }) {

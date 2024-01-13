@@ -4,7 +4,7 @@ export default function useAuth() {
     const [loggedIn, setLoggedIn] = useState(false);
     const [authChecked, setAuthChecked] = useState(false);
 
-    const updateLoggedIn = () =>{
+    const updateLoggedIn = () => {
         const authToken = getCookie('authToken');
         setLoggedIn(authToken !== null);
         setAuthChecked(true);
@@ -16,7 +16,7 @@ export default function useAuth() {
 
     const getCookie = (name) => {
         if (typeof document === 'undefined') {
-            return null; // Avoid server-side execution
+            return null;
         }
         const value = `; ${document.cookie}`;
         const parts = value.split(`; ${name}=`);
@@ -26,7 +26,7 @@ export default function useAuth() {
         return null;
     };
 
-    return {loggedIn, updateLoggedIn, getCookie, authChecked};
+    return { loggedIn, updateLoggedIn, getCookie, authChecked };
 };
 
 

@@ -46,7 +46,6 @@ export default function Bill({}) {
                     <h1>Bill</h1>
                     {loggedIn && isRecentTransactionsFetched() && <Card title={"Recente transacties"}>
                         <ul>
-                            {console.log(isRecentTransactionsFetched())}
                             {recentTransactions.map((transaction, index) => (
                                 <li key={index}>
                                     <p>{formatDate(transaction.duration.start)}</p>

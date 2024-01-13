@@ -28,7 +28,7 @@ export default function MapBox({
     useEffect(() => {
         mapRef.current = new mapboxgl.Map({
             container: mapContainerRef.current,
-            style: 'mapbox://styles/mapbox/streets-v11', //TODO: Change style
+            style: 'mapbox://styles/mapbox/streets-v11',
             center: [initialLocation.lng, initialLocation.lat],
             zoom: 14
         });
