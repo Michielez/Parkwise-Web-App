@@ -22,7 +22,8 @@ export default function PriceList({ priceRates, currency = "€" }) {
     return (
         <Card title={`Prijs`}>
             <ul>
-                {priceRates.map((rate, index) => {;
+                {priceRates.map((rate, index) => {
+                    ;
                     return (
                         <li key={index}>
                             <p>{formatDuration(parseInt(rate.minutes))}: </p>

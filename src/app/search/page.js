@@ -43,7 +43,7 @@ export default function Search() {
         const fetchCurrentSession = async () => {
             try {
                 const data = await parkwiseAPI.getCurrentSession();
-                if (data.data.length !== 0){
+                if (data.data.length !== 0) {
                     const session = refactorData(data.data[0], currentSessionStrategy);
                     setCurrentSession(session);
                 }
@@ -112,9 +112,9 @@ export default function Search() {
                             <ul>
                                 {address && <li>Address: <p>{address}</p></li>}
                                 {selectedMarker.temperature && <li>Temperature: <p>{selectedMarker.temperature}°C</p></li>}
-                         
-                                { selectedMarker.capacity.total && <li>Parking spots: <p>{selectedMarker.capacity.total}</p></li>}
-                                { selectedMarker.capacity.available && <li>Available spots: <p>{selectedMarker.capacity.available}</p></li>}
+
+                                {selectedMarker.capacity.total && <li>Parking spots: <p>{selectedMarker.capacity.total}</p></li>}
+                                {selectedMarker.capacity.available && <li>Available spots: <p>{selectedMarker.capacity.available}</p></li>}
                             </ul>
                         </NavigationCard>
                     }

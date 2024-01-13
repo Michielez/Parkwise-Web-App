@@ -19,8 +19,11 @@ const RegisterForm = ({ handleCancel, handleRegister }) => {
     language: '',
     car: '',
   });
+
   const [currentStep, setCurrentStep] = useState(0);
+
   const [errorMessages, setErrorMessages] = useState([]);
+
   const fields = {
     user: [
       { label: 'Username', type: 'text', name: 'username' },

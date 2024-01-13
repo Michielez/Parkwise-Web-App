@@ -1,11 +1,13 @@
-.flex-container{
+.flex-container {
     display: flex;
     gap: 1rem;
     flex-wrap: wrap;
 }
-.general-information-card{
+
+.general-information-card {
     flex-grow: 1;
 }
-.price-list{
+
+.price-list {
     flex-grow: 1;
 }

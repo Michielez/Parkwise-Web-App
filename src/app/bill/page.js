@@ -2,14 +2,14 @@
 import BottomNavigation from "../components/BottomNavigation/BottomNavigation"
 import Card from "../components/Card/Card"
 import styles from "./bill.module.css";
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import mockData from "@/app/mockData/mockData";
 import { refactorData, recentTransactionsStrategy } from "@/app/api/apiStrategies";
 import ParkwiseAPI from "@/app/api/parkwise-strapi-api";
 import useAuth from "../hooks/useAuth";
 
 
-export default function Bill({}) {
+export default function Bill({ }) {
 
     const [recentTransactions, setRecentTransactions] = useState([]);
     const { loggedIn, updateLoggedIn, getCookie } = useAuth();
@@ -17,7 +17,7 @@ export default function Bill({}) {
     const authToken = getCookie("authToken");
     const parkwiseAPI = new ParkwiseAPI(authToken);
 
-    useEffect(()=>{
+    useEffect(() => {
         const fetchRecentTransactions = async () => {
             const data = await parkwiseAPI.getRecentTransactions();
             const recentTransactions = refactorData(data.data, recentTransactionsStrategy);
@@ -37,9 +37,10 @@ export default function Bill({}) {
         const year = date.getFullYear();
         return `${day}-${month}-${year}`;
     }
-    
+
     const isRecentTransactionsFetched = () => recentTransactions.length > 0;
-    if (process.env.NEXT_PUBLIC_API_CHOICE === "strapi"){
+
+    if (process.env.NEXT_PUBLIC_API_CHOICE === "strapi") {
         return (
             <>
                 <main>
@@ -57,13 +58,13 @@ export default function Bill({}) {
                     </Card>}
                     {!loggedIn && <p>You're currently not logged in! <a className={styles.loginATag} href="../account">Login</a></p>}
                     {loggedIn && !isRecentTransactionsFetched() && <p>You currently don't have any recent transactions!</p>}
-                    {}
-                    
+                    { }
+
                 </main>
                 <BottomNavigation />
             </>
         );
-    } else if (process.env.NEXT_PUBLIC_API_CHOICE === "mock"){
+    } else if (process.env.NEXT_PUBLIC_API_CHOICE === "mock") {
         return (
             <>
                 <main>
@@ -84,5 +85,5 @@ export default function Bill({}) {
             </>
         );
     }
-    
+
 }

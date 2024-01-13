@@ -1,9 +1,9 @@
 class ParkWiseStrapiAPI {
-    constructor(authToken, baseURL = process.env.NEXT_PUBLIC_REMOTE_STRAPI_URL ) {
+    constructor(authToken, baseURL = process.env.NEXT_PUBLIC_REMOTE_STRAPI_URL) {
         this.baseURL = baseURL;
         this.authToken = authToken;
     }
-    
+
     async GET(path, params = {}) {
         const url = new URL(`${this.baseURL}${path}`);
         Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
@@ -12,7 +12,7 @@ class ParkWiseStrapiAPI {
             let headers = {
                 'Content-Type': 'application/json'
             }
-            if (this.authToken){
+            if (this.authToken) {
                 headers.Authorization = `Bearer ${this.authToken}`;
             }
 
@@ -31,13 +31,13 @@ class ParkWiseStrapiAPI {
         }
     }
 
-    async POST(path ,body = {}) {
+    async POST(path, body = {}) {
         const url = new URL(`${this.baseURL}${path}`);
         try {
             let headers = {
                 'Content-Type': 'application/json'
             }
-            if (this.authToken){
+            if (this.authToken) {
                 headers.Authorization = `Bearer ${this.authToken}`;
             }
             const response = await fetch(url, {
@@ -62,7 +62,7 @@ class ParkWiseStrapiAPI {
             let headers = {
                 'Content-Type': 'application/json'
             }
-            if (this.authToken){
+            if (this.authToken) {
                 headers.Authorization = `Bearer ${this.authToken}`;
             }
             const response = await fetch(url, {
@@ -109,13 +109,13 @@ class ParkWiseStrapiAPI {
         });
     }
 
-    async register(formData){
+    async register(formData) {
         return await this.POST('api/auth/local/register', formData);
     }
-    async getUserInfo(){
+    async getUserInfo() {
         return await this.GET('api/users/me');
     }
-    async updateUserInfo(userId, formData){
+    async updateUserInfo(userId, formData) {
         return await this.PUT(`api/users/${userId}`, formData);
     }
 

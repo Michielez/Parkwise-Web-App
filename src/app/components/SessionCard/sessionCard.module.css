@@ -1,6 +1,7 @@
-.sessie-card{
+.sessie-card {
     display: flex;
 }
-.card-child{
+
+.card-child {
     color: #fff;
 }

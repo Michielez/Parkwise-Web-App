@@ -28,7 +28,7 @@ export default function SessionCard({ session }) {
         for (let entry of priceRate) {
             if (durationInMinutes <= entry.minutes) {
                 calculatedPrice = entry.price;
-                break; 
+                break;
             }
         }
         return calculatedPrice;

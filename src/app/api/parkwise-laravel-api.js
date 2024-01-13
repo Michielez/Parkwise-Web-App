@@ -16,7 +16,7 @@ class ParkWiseLaravelAPI {
                     console.error(data.cause || 'An error occurred during getting the info.');
                     throw new Error(data.cause || 'An error occurred during getting the info.');
                 }
-            } catch (error){
+            } catch (error) {
                 if (!response.ok) {
                     throw new Error('Network response was not ok.');
                 }
@@ -30,7 +30,7 @@ class ParkWiseLaravelAPI {
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(formDate)
                 });
-            
+
                 try {
                     const data = await response.json();
                     if (response.ok) {
@@ -45,7 +45,7 @@ class ParkWiseLaravelAPI {
                     }
                     throw error;
                 }
-            },            
+            },
             login: async (username, password) => {
                 const response = await fetch(`${baseURL}/auth/login`, {
                     method: 'POST',
@@ -264,7 +264,7 @@ class ParkWiseLaravelAPI {
                     if (!response.ok) {
                         throw new Error('Network response was not ok.');
                     }
-                    throw error;                    
+                    throw error;
                 }
             }
         }
@@ -274,7 +274,7 @@ class ParkWiseLaravelAPI {
                     method: 'GET',
                     headers: { 'Content-Type': 'application/json' }
                 });
-                
+
                 try {
                     const data = await response.json();
                     if (response.ok) {
@@ -287,7 +287,7 @@ class ParkWiseLaravelAPI {
                     if (!response.ok) {
                         throw new Error('Network response was not ok.');
                     }
-                    throw error;                    
+                    throw error;
                 }
 
             },
@@ -296,7 +296,7 @@ class ParkWiseLaravelAPI {
                     method: 'DELETE',
                     headers: { 'Content-Type': 'application/json' }
                 });
-                
+
                 try {
                     const data = await response.json();
                     if (response.ok) {
@@ -309,7 +309,7 @@ class ParkWiseLaravelAPI {
                     if (!response.ok) {
                         throw new Error('Network response was not ok.');
                     }
-                    throw error;                    
+                    throw error;
                 }
             },
             putCountry: async (id, updates) => {
@@ -331,7 +331,7 @@ class ParkWiseLaravelAPI {
                     if (!response.ok) {
                         throw new Error('Network response was not ok.');
                     }
-                    throw error;                    
+                    throw error;
                 }
             }
         }

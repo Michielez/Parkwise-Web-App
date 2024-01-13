@@ -1,20 +1,24 @@
-.form{
+.form {
     width: 100%;
 }
-.form .formButtons{
+
+.form .formButtons {
     display: flex;
     justify-content: space-around;
     align-items: center;
     width: 100%;
 }
-.form .registerButton{
+
+.form .registerButton {
     margin: 1rem 0 1rem auto;
 
 }
-.form .loginButton{
+
+.form .loginButton {
     margin: 1rem auto 1rem 0;
 }
-.form .loginButton{
+
+.form .loginButton {
     width: 100%;
     padding: 0.5rem;
     border-radius: 0.5rem;
@@ -23,17 +27,19 @@
     color: white;
 }
 
-.form .loginButton:hover{
+.form .loginButton:hover {
     background-color: #fff;
     color: #000;
     cursor: pointer;
 }
-.form .registerButtonContainer{
+
+.form .registerButtonContainer {
     display: flex;
     align-items: center;
     justify-content: center;
 }
-.registerButton{
+
+.registerButton {
     color: #fff;
     background-color: transparent;
     border: none;
@@ -42,10 +48,12 @@
     text-decoration: underline;
     margin-left: 0.2rem;
 }
-.geenAccount{
+
+.geenAccount {
     text-align: center;
 }
-.errorMessages{
+
+.errorMessages {
     margin: 0.5rem 0 1rem 0;
     color: red;
     text-align: center;

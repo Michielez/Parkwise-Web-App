@@ -32,7 +32,7 @@ export default function Ticket({ }) {
         if (currentSession?.parking.temperature > TEMPERATURE_TRESHOLD) {
             setShowPopup(true);
         }
-    },[currentSession])
+    }, [currentSession])
 
     const Popup = () => (
         <div className={styles.popup}>

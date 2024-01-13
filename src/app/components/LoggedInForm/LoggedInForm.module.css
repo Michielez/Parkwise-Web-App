@@ -1,10 +1,10 @@
-.buttons{
+.buttons {
     margin: 1rem 0;
     display: flex;
     gap: 1rem;
 }
 
-.button{
+.button {
     color: white;
     background-color: transparent;
     border: 1px solid white;
@@ -12,7 +12,7 @@
     border-radius: 0.5rem;
 }
 
-.button:hover{
+.button:hover {
     background-color: white;
     color: black;
     cursor: pointer;

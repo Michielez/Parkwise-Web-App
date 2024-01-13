@@ -5,6 +5,6 @@ export default function NavigateButton({ location }) {
     }
 
     return (
-            <button onClick={navigate} className={styles.button}>Navigeer naar parking</button>
+        <button onClick={navigate} className={styles.button}>Navigeer naar parking</button>
     )
 }

@@ -54,7 +54,7 @@ export default function MapBox({
             const newMarker = new mapboxgl.Marker(el)
                 .setLngLat([currentSession.parking.location.lng, currentSession.parking.location.lat])
                 .setPopup(new mapboxgl.Popup({ offset: markerSize / 2 })
-                .setHTML(`
+                    .setHTML(`
                     <h3 style='color:black'>${currentSession.parking.name}</h3>
                     <p style='color:black'>You're parked here</p>
                 `))
@@ -76,11 +76,11 @@ export default function MapBox({
                 el.style.width = markerSize + 'px';
                 el.style.height = markerSize + 'px';
                 el.style.backgroundSize = 'cover';
-                                
+
                 const newMarker = new mapboxgl.Marker(el)
                     .setLngLat([marker.location.lng, marker.location.lat])
                     .setPopup(new mapboxgl.Popup({ offset: markerSize / 2 })
-                    .setHTML(`<h3 style='color:black'>${marker.name}</h3>`))
+                        .setHTML(`<h3 style='color:black'>${marker.name}</h3>`))
                     .addTo(mapRef.current);
                 newMarker.getElement().addEventListener('click', (e) => {
                     e.preventDefault();

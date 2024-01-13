@@ -50,7 +50,7 @@ const loginForm = ({ handleRegisterClick, onSubmit }) => {
         } catch (error) {
             setErrorMessages([])
             if (error.details.errors) {
-                const newErrorMessages = error.details.errors.map(err => err.message.replace("identifier","username"));
+                const newErrorMessages = error.details.errors.map(err => err.message.replace("identifier", "username"));
                 setErrorMessages(newErrorMessages);
             } else {
                 setErrorMessages([error.message.replace("identifier", "username")]);

@@ -19,7 +19,7 @@ export const recentTransactionsStrategy = {
     mock: (recentTransactions) => {
         return recentTransactions.map((recentTransaction) => recentTransactionStrategy.mock(recentTransaction));
     },
-laravel: (recentTransactions) => ({ })
+    laravel: (recentTransactions) => ({})
 };
 
 export const recentTransactionStrategy = {
@@ -97,7 +97,7 @@ export const parkingStrategy = {
         }
     }),
     mock: (parking) => ({ parking }),
-    laravel: (marker) => ({ })
+    laravel: (marker) => ({})
 };
 
 export const priceRateStrategy = {
@@ -133,5 +133,5 @@ export const currentSessionStrategy = {
         }
     ),
     mock: (currentSession) => ({ currentSession }),
-    laravel: (currentSession) => ({ })
+    laravel: (currentSession) => ({})
 }

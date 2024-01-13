@@ -286,9 +286,9 @@ const account = {
 
             },
             payment: {
-                method: "Bancontact", 
-                time: "2021-05-05T15:00:00.000Z", 
-                amount: 10.00, 
+                method: "Bancontact",
+                time: "2021-05-05T15:00:00.000Z",
+                amount: 10.00,
                 currency: "€"
             },
         },
@@ -384,7 +384,7 @@ const account = {
                 prices: {
                     currency: "€",
                     price: [
-                        {"minutes":60, "price": 0.00 },
+                        { "minutes": 60, "price": 0.00 },
                         { "minutes": 120, "price": 3.80 },
                         { "minutes": 180, "price": 5.80 },
                         { "minutes": 240, "price": 7.90 },
@@ -416,7 +416,7 @@ const account = {
                 prices: {
                     currency: "€",
                     price: [
-                        {"minutes":60, "price": 0.00 },
+                        { "minutes": 60, "price": 0.00 },
                         { "minutes": 120, "price": 3.80 },
                         { "minutes": 180, "price": 5.80 },
                         { "minutes": 240, "price": 7.90 },
@@ -446,6 +446,6 @@ const temperatureInCelcius = [
         "temperature": 22.05,
         "createdAt": "2024-01-01T12:01:00.000Z"
     },
-    
+
 ]
 export default { parkings, account };

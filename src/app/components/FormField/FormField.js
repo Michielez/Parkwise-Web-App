@@ -1,9 +1,9 @@
 import React from 'react';
 import styles from './formField.module.css';
 
-export default function FormField({ label, type, name, value, onChange, disabled = false }){
+export default function FormField({ label, type, name, value, onChange, disabled = false }) {
   let disabledText;
-  if (disabled == true){
+  if (disabled == true) {
     disabledText = "disabled"
   } else {
     disabledText = ""
@@ -19,7 +19,7 @@ export default function FormField({ label, type, name, value, onChange, disabled
         onChange={onChange}
         className={styles.formInput}
         placeholder={label}
-        disabled={ disabledText }
+        disabled={disabledText}
       />
     </div>
   );
