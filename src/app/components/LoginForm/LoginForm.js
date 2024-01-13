@@ -39,9 +39,9 @@ const loginForm = ({ handleRegisterClick, onSubmit }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const ParkWiseAPI = new ParkwiseApi();
+        const parkwiseAPI = new ParkwiseApi();
         try {
-            const responseData = await ParkWiseAPI.login(
+            const responseData = await parkwiseAPI.login(
                 formData.username,
                 formData.password
             )

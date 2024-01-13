@@ -9,7 +9,7 @@ import useAuth from "../hooks/useAuth";
 
 import styles from "./ticket.module.css"
 import NavigateButton from "../components/NavigateButton/NavigateButton";
-import ParkwiseStrapiAPI from "@/app/api/parkwise-strapi-api"
+import ParkwiseAPI from "@/app/api/parkwise-strapi-api"
 
 import { refactorData, currentSessionStrategy, parkingsStrategy } from "@/app/api/apiStrategies";
 
@@ -23,7 +23,7 @@ export default function Ticket({ }) {
     const [showPopup, setShowPopup] = useState(false);
 
     const authToken = getCookie("authToken");
-    const ParkwiseAPI = new ParkwiseStrapiAPI(authToken);
+    const parkwiseAPI = new ParkwiseAPI(authToken);
 
     const TEMPERATURE_TRESHOLD = process.env.NEXT_PUBLIC_TEMPERATURE_TRESHOLD;
 
@@ -46,7 +46,7 @@ export default function Ticket({ }) {
 
     useEffect(() => {
         const fetchCurrentSession = async () => {
-            const data = await ParkwiseAPI.getCurrentSession();
+            const data = await parkwiseAPI.getCurrentSession();
             if (data.data[0]) {
                 const session = refactorData(data.data[0], currentSessionStrategy);
                 setCurrentSession(session);
@@ -89,7 +89,7 @@ export default function Ticket({ }) {
     useEffect(() => {
         const fetchMarkers = async () => {
             try {
-                const data = await ParkwiseAPI.getParkings();
+                const data = await parkwiseAPI.getParkings();
                 const parkings = refactorData(data.data, parkingsStrategy);
                 setMarkers(parkings);
             } catch (error) {

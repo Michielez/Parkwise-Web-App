@@ -5,7 +5,7 @@ import PriceList from "../components/PriceList/PriceList";
 import NavigationCard from "../components/NavigationCard/NavigationCard";
 import BottomNavigation from "../components/BottomNavigation/BottomNavigation";
 import MockData from "@/app/mockData/mockData";
-import ParkWiseStrapiAPI from "../api/parkwise-strapi-api";
+import ParkwiseAPI from "../api/parkwise-strapi-api";
 import styles from "./search.module.css";
 import useAuth from "../hooks/useAuth";
 import { refactorData, currentSessionStrategy, parkingsStrategy } from "@/app/api/apiStrategies";
@@ -19,12 +19,12 @@ export default function Search() {
     const { getCookie } = useAuth();
     const authToken = getCookie('authToken');
 
-    const ParkwiseAPI = new ParkWiseStrapiAPI(authToken);
+    const parkwiseAPI = new ParkwiseAPI(authToken);
 
     useEffect(() => {
         const fetchMarkers = async () => {
             try {
-                const data = await ParkwiseAPI.getParkings();
+                const data = await parkwiseAPI.getParkings();
                 const parkings = refactorData(data.data, parkingsStrategy);
                 setMarkers(parkings);
             } catch (error) {
@@ -42,9 +42,11 @@ export default function Search() {
     useEffect(() => {
         const fetchCurrentSession = async () => {
             try {
-                const data = await ParkwiseAPI.getCurrentSession();
-                const session = refactorData(data.data[0], currentSessionStrategy);
-                setCurrentSession(session);
+                const data = await parkwiseAPI.getCurrentSession();
+                if (data.data.length !== 0){
+                    const session = refactorData(data.data[0], currentSessionStrategy);
+                    setCurrentSession(session);
+                }
             } catch (error) {
                 console.error("Error fetching current session:", error);
             }

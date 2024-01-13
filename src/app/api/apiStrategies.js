@@ -1,3 +1,5 @@
+//TODO: If laravel has to be implemented do it in each strategy
+
 export function refactorData(data, strategies) {
     const apiChoice = process.env.NEXT_PUBLIC_API_CHOICE;
     const strategy = strategies[apiChoice];
@@ -17,9 +19,7 @@ export const recentTransactionsStrategy = {
     mock: (recentTransactions) => {
         return recentTransactions.map((recentTransaction) => recentTransactionStrategy.mock(recentTransaction));
     },
-    laravel: (recentTransactions) => {
-
-    }
+laravel: (recentTransactions) => ({ })
 };
 
 export const recentTransactionStrategy = {
@@ -44,7 +44,7 @@ export const paymentStrategy = {
         time: payment.attributes.time,
     }),
     mock: (payment) => ({ payment }),
-    laravel: (payment) => { }
+    laravel: (payment) => ({})
 }
 
 export const currencyStrategy = {
@@ -53,7 +53,7 @@ export const currencyStrategy = {
         name: currency.attributes.name,
     }),
     mock: (currency) => ({ currency }),
-    laravel: (currency) => { }
+    laravel: (currency) => ({})
 };
 
 export const selectedParkingStrategy = {
@@ -63,7 +63,7 @@ export const selectedParkingStrategy = {
         name: selectedParking.attributes.name,
     }),
     mock: (selectedMarker) => ({ selectedMarker }),
-    laravel: (selectedMarker) => { }
+    laravel: (selectedMarker) => ({})
 };
 
 export const parkingsStrategy = {
@@ -73,42 +73,32 @@ export const parkingsStrategy = {
     mock: (parkings) => {
         return parkings.map((parking) => parkingStrategy.mock(parking));
     },
-    laravel: (parkings) => { }
+    laravel: (parkings) => ({})
 }
 
 export const parkingStrategy = {
-    strapi(parking) {
-        return {
-            priceRates: priceRatesStrategy.strapi(parking.attributes.price_rates.data),
-            name: parking.attributes.name,
-            type: parking.attributes.type,
-            temperature: parking.attributes.temperature,
-            location: {
-                lat: parking.attributes.location.data.attributes.lat,
-                lng: parking.attributes.location.data.attributes.lng,
-            },
-            capacity: {
-                total: parking.attributes.capacity.data.attributes.total,
-                taken: parking.attributes.capacity.data.attributes.taken,
-                available: parking.attributes.capacity.data.attributes.available,
-            },
-            currency: {
-                symbol: parking.attributes.currency.data.attributes.symbol,
-                name: parking.attributes.currency.data.attributes.name,
-            }
+    strapi: (parking) => ({
+        priceRates: priceRatesStrategy.strapi(parking.attributes.price_rates.data),
+        name: parking.attributes.name,
+        type: parking.attributes.type,
+        temperature: parking.attributes.temperature,
+        location: {
+            lat: parking.attributes.location.data.attributes.lat,
+            lng: parking.attributes.location.data.attributes.lng,
+        },
+        capacity: {
+            total: parking.attributes.capacity.data.attributes.total,
+            taken: parking.attributes.capacity.data.attributes.taken,
+            available: parking.attributes.capacity.data.attributes.available,
+        },
+        currency: {
+            symbol: parking.attributes.currency.data.attributes.symbol,
+            name: parking.attributes.currency.data.attributes.name,
         }
-    },
+    }),
     mock: (parking) => ({ parking }),
-    laravel: (marker) => {
-        //TODO: Implementation for laravel
-    }
+    laravel: (marker) => ({ })
 };
-
-export const markersStrategy = {
-    strapi: (markers) => markers.map((marker) => selectedMarkerStrategy.strapi(marker)),
-    mock: (markers) => markers.map((marker) => selectedMarkerStrategy.mock(marker)),
-    laravel: (markers) => { }
-}
 
 export const priceRateStrategy = {
     strapi: (priceRate) => ({
@@ -116,9 +106,7 @@ export const priceRateStrategy = {
         price: priceRate.attributes.price
     }),
     mock: (priceRate) => ({ priceRate }),
-    laravel: (priceRate) => {
-        //TODO: Implementation for laravel
-    }
+    laravel: (priceRate) => ({})
 };
 
 export const priceRatesStrategy = {
@@ -128,14 +116,12 @@ export const priceRatesStrategy = {
     mock(priceRates) {
         return priceRates.map((priceRate) => priceRateStrategy.mock(priceRate));
     },
-    laravel: (priceRates) => {
-
-    }
+    laravel: (priceRates) => ({})
 }
 
 export const currentSessionStrategy = {
-    strapi: (currentSession) => {
-        return {
+    strapi: (currentSession) => (
+        {
             id: currentSession.id,
             car: currentSession.attributes.car,
             parking: parkingStrategy.strapi(currentSession.attributes.parking.data),
@@ -145,7 +131,7 @@ export const currentSessionStrategy = {
                 end: currentSession.attributes.duration.data.attributes.end,
             }
         }
-    },
+    ),
     mock: (currentSession) => ({ currentSession }),
-    laravel: (currentSession) => { }
+    laravel: (currentSession) => ({ })
 }
