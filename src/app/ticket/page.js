@@ -36,12 +36,11 @@ export default function Ticket({ }) {
     useEffect(() => {
         const temperatureExceedsThreshold = currentSession?.parking.temperature > TEMPERATURE_TRESHOLD;
 
-        // Show the popup only if the temperature exceeds the threshold and it wasn't previously shown
         if (temperatureExceedsThreshold && !thresholdExceeded) {
             setShowPopup(true);
-            setThresholdExceeded(true); // Mark that the popup has been shown for this threshold exceedance
+            setThresholdExceeded(true); 
         } else if (!temperatureExceedsThreshold) {
-            setThresholdExceeded(false); // Reset if the temperature goes below the threshold
+            setThresholdExceeded(false); 
         }
     }, [currentSession, TEMPERATURE_TRESHOLD, thresholdExceeded]);
 

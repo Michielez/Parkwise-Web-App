@@ -29,11 +29,10 @@ const loginForm = ({ handleRegisterClick, onSubmit }) => {
 
     function setCookieWithJwtExpiry(jwt) {
         const payload = jwt.split('.')[1];
-        const decodedPayload = atob(payload); // Base64 decode
+        const decodedPayload = atob(payload); 
         const payloadObj = JSON.parse(decodedPayload);
-        const expDate = new Date(payloadObj.exp * 1000); // Convert to milliseconds
+        const expDate = new Date(payloadObj.exp * 1000); 
 
-        // Set the cookie with the same expiry as the JWT
         document.cookie = `authToken=${jwt}; expires=${expDate.toUTCString()}; SameSite=Lax`;
     }
 
