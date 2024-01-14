@@ -4,7 +4,7 @@ import PriceList from "../components/PriceList/PriceList"
 import MapBox from "../components/MapBox/MapBox"
 import SessionCard from "../components/SessionCard/SessionCard"
 import MockData from "@/app/mockData/mockData"
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import useAuth from "../hooks/useAuth";
 import styles from "./ticket.module.css"
 import NavigateButton from "../components/NavigateButton/NavigateButton";
@@ -18,28 +18,39 @@ export default function Ticket({ }) {
     const [address, setAddress] = useState('');
     const { loggedIn, updateLoggedIn, getCookie } = useAuth();
     const [showPopup, setShowPopup] = useState(false);
+    const [thresholdExceeded, setThresholdExceeded] = useState(false);
 
     const authToken = getCookie("authToken");
     const parkwiseAPI = new ParkwiseAPI(authToken);
 
     const TEMPERATURE_TRESHOLD = process.env.NEXT_PUBLIC_TEMPERATURE_TRESHOLD;
 
+    const fetchInterval = useRef();
+
+
+
     const onMarkerClick = () => {
 
     }
 
     useEffect(() => {
-        if (currentSession?.parking.temperature > TEMPERATURE_TRESHOLD) {
+        const temperatureExceedsThreshold = currentSession?.parking.temperature > TEMPERATURE_TRESHOLD;
+
+        // Show the popup only if the temperature exceeds the threshold and it wasn't previously shown
+        if (temperatureExceedsThreshold && !thresholdExceeded) {
             setShowPopup(true);
+            setThresholdExceeded(true); // Mark that the popup has been shown for this threshold exceedance
+        } else if (!temperatureExceedsThreshold) {
+            setThresholdExceeded(false); // Reset if the temperature goes below the threshold
         }
-    }, [currentSession])
+    }, [currentSession, TEMPERATURE_TRESHOLD, thresholdExceeded]);
 
     const Popup = () => (
         <div className={styles.popup}>
-            <p><span>Warning:</span> High Temperature! ({currentSession.parking.temperature}°C)</p>
+            <p><span>Warning:</span> High Temperature! ({currentSession?.parking.temperature}°C)</p>
             <button onClick={() => setShowPopup(false)}>Close</button>
         </div>
-    )
+    );
 
     useEffect(() => {
         const fetchCurrentSession = async () => {
@@ -51,11 +62,20 @@ export default function Ticket({ }) {
         }
         if (process.env.NEXT_PUBLIC_API_CHOICE === "strapi" && loggedIn) {
             fetchCurrentSession();
+            const interval = setInterval(() => {
+                fetchCurrentSession();
+            }, 2000);
+
+            fetchInterval.current = interval;
+
+            return () => clearInterval(fetchInterval.current);
         } else if (process.env.NEXT_PUBLIC_API_CHOICE === "mock") {
             setCurrentSession(MockData.account.currentSession);
         }
 
     }, [loggedIn]);
+
+
 
     useEffect(() => {
         const fetchAddress = async () => {
