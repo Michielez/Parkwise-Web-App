@@ -16,7 +16,7 @@ export default function Search() {
     const [showInformation, setShowInformation] = useState(false);
     const [currentSession, setCurrentSession] = useState(null);
     const [address, setAddress] = useState(null);
-    const { getCookie } = useAuth();
+    const { getCookie, isLoggedIn } = useAuth();
     const authToken = getCookie('authToken');
 
     const parkwiseAPI = new ParkwiseAPI(authToken);
@@ -51,7 +51,7 @@ export default function Search() {
                 console.error("Error fetching current session:", error);
             }
         }
-        if (process.env.NEXT_PUBLIC_API_CHOICE === "strapi") {
+        if (process.env.NEXT_PUBLIC_API_CHOICE === "strapi" && isLoggedIn) {
             fetchCurrentSession();
         } else if (process.env.NEXT_PUBLIC_API_CHOICE === "mock") {
             setCurrentSession(MockData.account.currentSession);
